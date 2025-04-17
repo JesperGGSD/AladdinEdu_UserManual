@@ -45,6 +45,7 @@ _本节预计完成时间：2min_
 在扩展中搜索Aladdin，点击安装：
 
 ![install1](./pic/vs1.png)
+
 安装完成后可在活动栏看到Aladdin插件图标，安装成功：
 
 ![install2](./pic/vs2.png)
