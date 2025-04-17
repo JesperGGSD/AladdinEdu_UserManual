@@ -117,18 +117,23 @@ workshop为Aladdin插件的编码区，可在本地VSCode中连接远程服务�
 ***
 #### 常见问题
 Q：启动workshop时Environment栏无内容，如何处理？
+
 A：网络延迟或设备卡顿引起，稍等片刻即可。
 
 Q：启动workshop后提示填写locahost密码，如何处理？
+
 A：这种情况下是由于您当前设备中可访问 ~/.ssh 或 ~/.alaya/ssh 的用户过多，删除至仅当前登录用户可访问即可恢复正常，点击查看[解决方案链接](https://blog.csdn.net/chaoenhu/article/details/103698804)。
 
 Q：workshop打开远端页面失败，提示“无法与‘创建的workshop’建立连接”。
+
 A：需要检查本地是否启动了全局代理模式的科学上网。如有，可尝试关闭后再重启。
 
 Q：远端页面提示“无法激活‘Aladdin’拓展”/远端页面中未显示Aladdin插件图标，如何处理？
+
 A：在远端页面中卸载Aladdin插件，然后在本地的VSCode中右击有问题的workshop，点击"Install Remote"手动安装。
 
 Q：我在workshop中装了gcc，为什么GPU Run时无法使用？
+
 A：任何没有装在/root目录下的文件都不会被保存，通过重启workshop或启动GPU Run等都不会生效。后续保存镜像功能上线后，可通过保存镜像即可解决。
 
 如您的问题仍无法解决，可关注公众号“九章云极AladdinEdu”，点击菜单栏中的“问题反馈”，根据问卷提示填写相应报错信息，等待工作人员联系。
