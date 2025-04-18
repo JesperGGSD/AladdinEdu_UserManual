@@ -33,6 +33,8 @@ Huggingface加速：https://hf-mirror.com
 
 >AladdinEdu的使用主要分为三步，workshop建立 > 环境配置 > GPU调用，以下内容将围绕此流程展开。
 
+![frame](./pic/frame.png)
+
 ![pic](./pic/pic.png)
 
 ### 插件初始化
