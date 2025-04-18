@@ -469,8 +469,11 @@ pods "run-xxxxx" is forbidden: exceeded quota: vks-xxx, requested: limits.cpu=26
 ```
 
 A：这是由于workshop占用的CPU资源过多，导致GPU任务启动时资源不足。
+
   解决方法：
+  
   检查是否有多个workshop正在运行中，将无关的workshop关闭。
+  
   将当前workshop的资源调整为2核4G（右击当前workshop，Edit），重启workshop后即可正常运行GPU任务。
 
 ***
