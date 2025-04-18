@@ -472,7 +472,7 @@ A：这是由于workshop占用的CPU资源过多，导致GPU任务启动时资�
 
   解决方法：
   
-  检查是否有多个workshop正在运行中，将无关的workshop关闭。
+  检查是否有多个workshop正在运行中，将其他workshop关闭。
   
   将当前workshop的资源调整为2核4G（右击当前workshop，Edit），重启workshop后即可正常运行GPU任务。
 
