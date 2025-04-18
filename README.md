@@ -33,8 +33,6 @@ git config --global url."https://gh-proxy.com/github.com/".insteadOf "https://gi
 export HF_ENDPOINT=https://hf-mirror.com
 ```
 
-Huggingface加速：https://hf-mirror.com
-
 ## 快速开始
 
 >AladdinEdu的使用主要分为三步，workshop建立 > 环境配置 > GPU调用，以下内容将围绕此流程展开。
