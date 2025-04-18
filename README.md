@@ -25,7 +25,13 @@ output: pdf_document
 
 ### 公开资源
 
-Github加速：https://gh-proxy.com/ 
+```
+#GitHub加速
+git config --global url."https://gh-proxy.com/github.com/".insteadOf "https://github.com/"
+
+#Huggingface加速
+export HF_ENDPOINT=https://hf-mirror.com
+```
 
 Huggingface加速：https://hf-mirror.com
 
