@@ -345,6 +345,8 @@ Epoch 5, Loss: 0.9424
 
 #### 大文件传输（G级别文件，强烈推荐）
 
+>推荐文件传输时，调整workshop的资源至可用范围内最大配额，保证传输过程稳定。
+
 1.查看ssh配置文件
 
 workshop创建成功后，查看ssh的配置文件：
@@ -397,14 +399,14 @@ scp -r ${workshop name}:/root/路径 /本地/路径
 |---------------------------|----------------------------------------------------------------------|----------------------------------------------------------------------|
 | Configurations        | 查看已保存的配置信息                                                 | 可快速载入历史配置                                                   |
 | Environment          | GPU运行的基础镜像                                                   | <span style="color: red">※ 使用conda环境则此处选择的镜像无效</span> |
-| Resource              | GPU调用时分配到的资源                                                 | - 可选择显卡数量、型号<br>- 卡型号后内容为系统自动适配的CPU、内存[^1]<br><span style="color: red">※ 40G卡型暂不支持使用多卡</span> |
+| Resource              | GPU调用时分配到的资源                                                 | - 可选择显卡数量、型号<br>- 卡型号后内容为系统自动适配的CPU、内存<br><span style="color: red">※ 40G卡型暂不支持使用多卡</span> |
 | Save as configuration | 保存当前GPU调用配置                                                 | 勾选后可供下次直接调用                                               |
 | ENV                   | 环境变量配置                                                       | 支持键值对形式注入                                                   |
 | Args                  | 命令行参数                                                         | 按需传入执行参数                                                     |
 | Python Module         | Python模块入口                                                     | 支持Python模块                                       |
 | Work Dir              | 工作目录路径                                                       | 不同项目可配置不同路径                                               |
 
-[^1]: "6C 80G"是指为每卡分配了6个CPU与80G内存，以此类推。每并行度可用CPU数为10，存储为121G，超出后将报错超出quota；
+> "6C 80G"是指为每卡分配了6个CPU与80G内存，以此类推。**每并行度可用CPU数为10，存储为121G，超出后将报错超出quota**；
 
 调用GPU（所有类型）成功后，对Running状态下的进程可以通过右击远端页面中的 DEVELOP SESSION 进行下列操作：
 
@@ -458,6 +460,21 @@ Run Task作为唯一训练态功能，可用于运行多worker分布式任务（
 | Delete   | 删除Task的日志信息           |
 
 >本地VSVode中，该Delete功能会停止Task并删除日志信息。
+
+***
+#### 常见问题
+Q：调用GPU时报错如下该如何处理？ 
+```
+pods "run-xxxxx" is forbidden: exceeded quota: vks-xxx, requested: limits.cpu=26,limits.memory=400Gi,requests.cpu=26,requests.memory=400Gi, used: limits.cpu=2,limits.memory=8Gi,requests.cpu=2,requests.memory=8Gi, limited: limits.cpu=20,limits.memory=224Gi,requests.cpu=20,requests.memory=224Gi
+```
+
+A：这是由于workshop占用的CPU资源过多，导致GPU任务启动时资源不足。
+  解决方法：
+  检查是否有多个workshop正在运行中，将无关的workshop关闭。
+  将当前workshop的资源调整为2核4G（右击当前workshop，Edit），重启workshop后即可正常运行GPU任务。
+
+***
+
 
 ## 充值与计费
 
