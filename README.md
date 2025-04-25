@@ -11,7 +11,7 @@ output: pdf_document
 
 🔹欢迎关注公众号“九章云极AladdinEdu”，获取更多活动与福利！
 
-🔹教学视频：<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=114396084835310&bvid=BV1bKLjz7EQk&cid=25789272101&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+🔹教学视频：【AladdinEdu平台使用教程（VSCode版）】 https://www.bilibili.com/video/BV1bKLjz7EQk/?share_source=copy_web&vd_source=785ba0f4a2bb0a864e047ca2c9d18fed
 
 🔹AladdinEdu，同学们用得起的算力平台。
 
