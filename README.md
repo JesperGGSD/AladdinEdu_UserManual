@@ -135,7 +135,7 @@ Q：启动workshop时Environment栏无内容，如何处理？
 
 A：网络延迟或设备卡顿引起，稍等片刻即可。
 
-Q：启动workshop后提示填写locahost密码，如何处理？
+Q：启动workshop后提示填写localhost密码，如何处理？
 
 A：这种情况下是由于您当前设备中可访问 ~/.ssh 或 ~/.alaya/ssh 的用户过多，删除至仅当前登录用户可访问即可恢复正常，点击查看[解决方案链接](https://blog.csdn.net/chaoenhu/article/details/103698804)。
 
@@ -503,7 +503,7 @@ A：这是由于workshop占用的CPU资源过多，导致GPU任务启动时资�
 
 1.如果远端服务使用结束，一定要记得手动delete shell任务，否则会一直占用GPU资源产生不必要的费用。
 
-2.所有server**必须绑定0.0.0.0**，不能使用127.0.0.1或hocalhost。
+2.所有server**必须绑定0.0.0.0**，不能使用127.0.0.1或localhost。
 
 3.暂不支持TCP协议，仅支持HTTP协议。
 
