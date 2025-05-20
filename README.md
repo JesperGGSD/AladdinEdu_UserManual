@@ -499,9 +499,12 @@ A：这是由于workshop占用的CPU资源过多，导致GPU任务启动时资�
 
 ### 端口转发
 
->**重要 ❗ ❗ ❗**：
+** ❗ 重要 ❗**：
+
 1.如果远端服务使用结束，一定要记得手动delete shell任务，否则会一直占用GPU资源产生不必要的费用。
+
 2.所有server**必须绑定0.0.0.0**，不能使用127.0.0.1或hocalhost。
+
 3.暂不支持TCP协议，仅支持HTTP协议。
 
 #### 使用端口转发启动Jupyter
@@ -551,8 +554,8 @@ conda activate [你的环境]
 jupyter notebook --allow-root --listen 0.0.0.0
 ```
 4. 在代码区右击选择Run Shell运行，通过任一方法添加端口：
- - **方法1**：通过Run Shell配置页^1^添加端口
- 展开“Advanced”后，点击“+Add External Access”^2^新建端口，输入端口号^3^（Jupyter Sever启动端口号默认“8888”），点击Submit提交
+ - **方法1**：通过Run Shell配置页<sup>1</sup>添加端口
+ 展开“Advanced”后，点击“+Add External Access”<sup>2</sup>新建端口，输入端口号<sup>3</sup>（Jupyter Sever启动端口号默认“8888”），点击Submit提交
 
  ![runshell](./pic/runshell.png) 
 
