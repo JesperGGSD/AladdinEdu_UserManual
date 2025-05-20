@@ -2,6 +2,9 @@
 title: "UserManual_v1.2"
 date: May 20, 2025
 output: pdf_document
+plugin: 
+  name: "Aladdin"
+  version: "2.2.6"
 ---
 # AladdinEdu使用手册
 
@@ -39,11 +42,11 @@ export HF_ENDPOINT=https://hf-mirror.com
 
 >AladdinEdu的使用主要分为三步，workshop建立 > 环境配置 > GPU调用，以下内容将围绕此流程展开。
 
-使用流程图
+使用流程图：
 
 ![pic](./pic/pic.png)
 
-架构图
+架构图：
 
 ![frame](./pic/frame.png)
 
@@ -54,25 +57,25 @@ _本节预计完成时间：2min_
 #### 插件安装
 以VSCode版本为例
 
-在扩展中搜索Aladdin，点击安装：
+1. 在扩展中搜索Aladdin，点击安装：
 
 ![install1](./pic/vs1.png)
 
-安装完成后可在活动栏看到Aladdin插件图标，安装成功：
+2. 安装完成后可在活动栏看到Aladdin插件图标，安装成功：
 
 ![install2](./pic/vs2.png)
 
 #### 账号登录
 
-以VSCode版本为例，点击Aladdin插件图标，选择Login Personal Account，弹窗后选择“打开”外部网站（AladdinEdu平台）：
+1. 以VSCode版本为例，点击Aladdin插件图标，选择Login Personal Account，弹窗后选择“打开”外部网站（AladdinEdu平台）：
 
 ![login1](./pic/login1.png)
 
-在AladdinEdu平台中使用手机号或账号密码登录，首次使用者请先注册：
+2. 在AladdinEdu平台中使用手机号或账号密码登录，首次使用者请先注册：
 
 ![login2](./pic/login2.png)
 
-登录成功后点击“点击返回VSCode”，然后**手动**返回VSCode，弹窗后选择“打开”此URL，此时VSCode中提示登录成功：
+3. 登录成功后点击“点击返回VSCode”，等待返回VSCode（如未自动跳转，请**手动**返回VSCode）。此时VSCode中出现弹窗，选择“打开”此URL，提示登录成功：
 
 ![login3](./pic/login3.png)
 
@@ -86,11 +89,11 @@ _本节预计完成时间：3.5min_
 
 workshop为Aladdin插件的编码区，可在本地VSCode中连接远程服务器。
 
-在workshop菜单栏中点击 **+**，新建workshop：
+1. 在workshop菜单栏中点击 **+**，新建workshop：
 
 ![workshop1](./pic/workshop1.png)
 
-填写workshop名称，选择基础镜像与资源（推荐选择“CPU:4 MEM:16G”）：
+2. 填写workshop名称，选择基础镜像与资源（推荐选择“CPU:4 MEM:16G”）：
 
 ![workshop2](./pic/workshop2.png)
 
@@ -104,7 +107,6 @@ workshop为Aladdin插件的编码区，可在本地VSCode中连接远程服务�
 
 
 >注：目前不支持保存私有镜像。如需安装任何**自定义包**，此处镜像可**随意选择**。
-**重要 ❗ ：如需打开远端页面的Cursor，需在ENV下配置科学上网信息。**
 
 
 - 镜像介绍
@@ -116,15 +118,15 @@ workshop为Aladdin插件的编码区，可在本地VSCode中连接远程服务�
 | python | 3.10/3.11/3.12/3.13 | 纯净Python环境 |
 | ubuntu   | 22.04       | 纯净 Ubuntu 22.04 系统                                                  |
 
-点击提交后会出现插件的状态提示，配置预计在2min左右完成，提示由“Workshop is waiting for creating.”变为“Workshop is created.”：
+3. 点击提交后会出现插件的状态提示，配置预计在2min左右完成，提示由“Workshop is waiting for creating.”变为“Workshop is created.”：
 
 ![workshop3](./pic/workshop3-2.png)
 
-此时会弹出一个新窗口（后文统称**远端页面**），选择"Linux"，之后远端页面中将自动安装相关插件：
+4. 此时会弹出一个新窗口（后文统称为**远端页面**），选择"Linux"，之后远端页面中将自动安装相关插件：
 
 ![workshop4](./pic/workshop4.png)
 
-等待远端页面中出现Aladdin插件图标，workshop创建完成：
+5. 等待远端页面中出现Aladdin插件图标，workshop创建完成：
 
 ![workshop5](./pic/workshop5.png)
 ***
@@ -139,7 +141,11 @@ A：这种情况下是由于您当前设备中可访问 ~/.ssh 或 ~/.alaya/ssh 
 
 Q：workshop打开远端页面失败，提示“无法与‘创建的workshop’建立连接”。
 
-A：需要检查本地是否启动了全局代理模式的科学上网。如有，可尝试关闭后再重启。
+A：需要检查本地是否启动了全局代理模式的科学上网。如有，可尝试关闭后再重启。也可在本地终端中使用以下命令检查ssh连接是否正常。
+
+``` bash
+ssh -vv [出现的问题的workshop名称].bj1
+```
 
 Q：远端页面提示“无法激活‘Aladdin’拓展”/远端页面中未显示Aladdin插件图标，如何处理？
 
@@ -148,6 +154,18 @@ A：在远端页面中卸载Aladdin插件，然后在本地的VSCode中右击有
 Q：我在workshop中装了gcc，为什么GPU Run时无法使用？
 
 A：任何没有装在/root目录下的文件都不会被保存，通过重启workshop或启动GPU Run等都不会生效。后续保存镜像功能上线后，可通过保存镜像即可解决。
+
+Q：workshop中报错“无法激活 ‘Aladdin’ 扩展, 因为它依赖于未加载的 ‘Remote - SSH: Editing Configuration Files’ 扩展。是否要重新加载窗口以加载扩展名？”
+
+A：将远端页面中的Aladdin插件卸载即可，注意需保留Aladdin Remote插件。或通过在远端页面终端中执行命令卸载，命令如下：
+``` bash
+#VSCode版本
+code --uninstall-extension AlayaNeW.aladdin
+
+#Cursor版本
+cursor --uninstall-extension AlayaNeW.aladdin
+
+```
 
 如您的问题仍无法解决，可关注公众号“九章云极AladdinEdu”，点击菜单栏中的“问题反馈”，根据问卷提示填写相应报错信息，等待工作人员联系。
 ***
@@ -159,11 +177,11 @@ _以下操作均在远端页面中进行。_
 由于目前保存镜像功能暂未上线，直接将包装在镜像中将无法正常使用。**因此，如需自定义安装python包，均需从零开始配置环境**。
 >注：强烈推荐按照本文说明，使用miniconda做环境配置。
 
-workshop创建成功后，进入远端页面，选择打开/root目录：
+1. workshop创建成功后，进入远端页面，选择打开/root目录：
 
 ![conda1](./pic/conda1.png)
 
-新建终端，在终端中安装miniconda，并确认**安装在/root目录**下：
+2. 新建终端，在终端中安装miniconda，并确认**安装在/root目录**下：
 
 ![conda2](./pic/conda2.png)
 
@@ -193,24 +211,25 @@ conda config --set show_channel_urls yes
 pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 
 ```
-成功安装miniconda后，需配置python解释器——新建一个python文件，点击远端页面右下角的python版本号，切换到conda环境中的python：
+3. 成功安装miniconda后，需配置python解释器——新建一个python文件，点击远端页面右下角的python版本号，切换到conda环境中的python：
+
 或使用`Ctrl+Shift+P`快捷键打开命令窗口，输入"Select Interpreter"，更换python解释器。
 >**重要 ❗**：如不切换，调用GPU时将无法复用配置的环境，出现找不到已安装包的报错！
 
 ![conda5](./pic/conda5.png)
 
-远端页面右下角的版本号出现conda环境名，环境切换成功：
+4. 远端页面右下角的版本号出现conda环境名，环境切换成功：
 
 ![conda4](./pic/conda4.png)
 
-接着安装torch，推荐安装12.4版以适配GPU：
+5. 接着安装torch，推荐安装12.4版以适配GPU：
 >配置科学上网后将显著提升下载安装速度，具体步骤参考[学术资源加速](#学术资源加速)。
 
 ```bash
 #安装cuda 12.4
 pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
 ```
-使用以下代码测试cuda是否安装成功，以及是否与当前环境GPU兼容：
+   - 使用以下代码测试cuda是否安装成功，以及是否与当前环境GPU兼容：
 
 ```python
 import torch
@@ -294,7 +313,7 @@ if __name__ == "__main__":
     test_training()
 ```
 
-将代码复制到test.py中，在代码区右击GPU RUN运行。将资源选择为GPU，其余不变：
+6. 将以上代码复制到test.py中，在代码区右击GPU RUN运行。将资源选择为GPU，其余不变：
 
 ![conda6](./pic/conda6.png)
 ![conda6](./pic/conda6-1.png)
@@ -349,25 +368,23 @@ Epoch 5, Loss: 0.9424
 
 >推荐文件传输时，调整workshop的资源至可用范围内最大配额，保证传输过程稳定。
 
-1.查看ssh配置文件
-
-workshop创建成功后，查看ssh的配置文件：
+1. workshop创建成功后，查看ssh的配置文件：
 
 - 按`Ctrl+Shift+P`快捷键，选择“Remote-SSH: Open SSH Configuration File”
 
 ![store1](./pic/store1.png)
 ![store2](./pic/store2.png)
 
-在配置文件中找到workshop名称对应的Host，其中IdentityFile为密钥文件目录：
+- 在配置文件中找到workshop名称对应的Host，其中IdentityFile为密钥文件目录：
 
 ![store3](./pic/store3.png)
 
-2.配置sftp软件，以FlieZilla Client 为例
+2. 配置sftp软件，以FlieZilla Client 为例
 <span style="color: red; font-weight: bold">连接、传输时需确保 workshop 处于 running 状态</span>
 
 ![store4](./pic/store4.png)
 
-3.向/root目录下传输文件
+3. 向/root目录下传输文件
 
 ![store5](./pic/store5.png)
 
@@ -436,6 +453,7 @@ GPU Run提供与VSCode直接Run代码类似的开发态执行体验，运行Log�
 ### Run Shell
 
 与GPU Run类似，Run Shell可用于运行sh脚本，也可用于编译环境，但如上文所说编译后的环境只会保存在临时存储中，关闭workshop后会清除。
+>注：sh文件中需要添加conda activate [你的环境名]命令，或在.bashrc文件中直接激活conda环境。
 
 ### Run Task
 
@@ -473,26 +491,167 @@ A：这是由于workshop占用的CPU资源过多，导致GPU任务启动时资�
 
   解决方法：
   
-  检查是否有多个workshop正在运行中，将其他workshop关闭。
+  检查是否有多个workshop正在运行。如有，将其他workshop关闭。
   
-  将当前workshop的资源调整为2核4G（右击当前workshop，Edit），重启workshop后即可正常运行GPU任务。
+  将当前workshop的资源调整为2核4G（右击当前workshop，Edit），**重启workshop后**即可正常运行GPU任务。
 
 ***
+
+### 端口转发
+
+>**重要 ❗ ❗ ❗**：
+1.如果远端服务使用结束，一定要记得手动delete shell任务，否则会一直占用GPU资源产生不必要的费用。
+2.所有server**必须绑定0.0.0.0**，不能使用127.0.0.1或hocalhost。
+3.暂不支持TCP协议，仅支持HTTP协议。
+
+#### 使用端口转发启动Jupyter
+
+1. 启动workshop，进入远端页面后，在资源管理器下点击“打开文件夹”，选择/root作为工作路径。
+
+![OpenFolder](./pic/OpenFolder.png) 
+
+2. 打开远端页面终端，输入以下命令安装Jupyter：
+``` bash
+# 用 Anaconda 安装
+conda install jupyter notebook
+# 用 pip 安装
+pip install jupyter notebook
+```
+
+- 通过以下代码验证Jupyter是否安装成功：
+``` bash
+jupyter --version
+```
+
+  输出示例如下：
+
+``` text
+Selected Jupyter core packages...
+IPython          : 8.36.0
+ipykernel        : 6.29.5
+ipywidgets       : 8.1.7
+jupyter_client   : 8.6.3
+jupyter_core     : 5.7.2
+jupyter_server   : 2.16.0
+jupyterlab       : 4.4.2
+nbclient         : 0.10.2
+nbconvert        : 7.16.6
+nbformat         : 5.10.4
+notebook         : 7.4.2
+qtconsole        : not installed
+traitlets        : 5.14.3
+```
+
+3. 在/root目录下新建.sh文件，输入以下命令
+
+``` bash
+#激活包含jupyter的环境
+conda activate [你的环境]
+
+jupyter notebook --allow-root --listen 0.0.0.0
+```
+4. 在代码区右击选择Run Shell运行，通过任一方法添加端口：
+ - **方法1**：通过Run Shell配置页^1^添加端口
+ 展开“Advanced”后，点击“+Add External Access”^2^新建端口，输入端口号^3^（Jupyter Sever启动端口号默认“8888”），点击Submit提交
+
+ ![runshell](./pic/runshell.png) 
+
+ - **方法二**：Run Shell启动后，右击**Running**的session，选择“Add External Access”，在弹出窗口中输入端口号
+
+ ![addport](./pic/addport.png)
+
+>注意：.sh文件只有处于Running中才能新建端口，success或failed状态下，都不可新建端口。
+
+#### 访问端口
+1. Run Shell输出中打印了sever url后，点击session下的端口名称右侧的箭头，此时浏览器中弹出Jupyter网页：
+
+![portmapping](./pic/portmapping.png)
+![JupyterBrowser](./pic/JupyterBrowser.png)
+
+2. 在输出中找到token，在Juypter网页中填写，登录Jupyter服务器：
+
+![token](./pic/token.png)
+3. 启动Jupyter服务器后，可借助Jupyter实现如下功能：
+
+- **功能1**：在浏览器中使用Jupyter
+  通过Jupyter网页，可以看到/root目录下的所有文件，并在Jupyter中编译代码
+
+    ![jupyter1](./pic/jupyter1.png)
+
+- **功能2**：在VSCode中使用Jupyter（**需提前安装Jupyter和Python插件**）
+  （1）在workshop中新建.ipynb文件（Jupyter文件）
+
+    ![jupyterNotebook](./pic/jupyterNotebook.png)
+
+    （2）选择Select Kernel -> Existing Jupyter Server
+
+    ![selectkernel](./pic/selectkernel.png)
+    ![existing](./pic/existing.png)
+
+    输入Jupyter浏览器地址，回车
+
+    ![jupyterurl](./pic/jupyterurl.png)
+    ![jupyterurl1](./pic/jupyterurl1.png)
+
+    输入token，回车
+
+    ![confirm](./pic/confirm.png)
+
+    继续回车
+
+    ![confirm1](./pic/confirm1.png)
+
+    选择Python 3
+
+    ![python3](./pic/python3.png)
+
+    文件右上角变成了Python 3(ipykernel)，说明设置成功，此时就可在VSCode中利用Jupyter的功能调试代码了。
+
+    ![setting](./pic/setting.png)
+
+    （3）验证是否可用：在Jupyter网页中新建任意文件，然后在VSCode输入以下代码，运行测试。
+    ``` bash
+    import torch
+    torch.cuda.is_available()
+    ```
+    如果conda环境中含有torch，则有类似下文的输出：
+    ``` text
+    True
+    ```
+    ![torch_output](./pic/torch_output.png)
+
+#### 下载使用ComfyUI
+1. 在远端页面终端中执行以下命令，clone代码：
+``` bash
+git clone https://gh-proxy.com/github.com/comfyanonymous/ComfyUI.git
+```
+![clonecomfyUI](./pic/clonecomfyUI.png)
+
+2. 下载完成后，在ComfyUI文件夹下新建run.sh文件，将以下代码复制到run.sh文件中：
+``` bash
+apt update && apt install -y cmake g++ make
+pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu128
+pip install -r requirements.txt -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple
+python main.py --listen 0.0.0.0 --port 8188
+```
+3. 在代码区右击，选择Run Shell运行，填写配置时需注意：
+- 若打开文件目录为/root，则需在高级配置的“Work Dir”中填写文件路径，即“ComfyUI” 
+- 添加外部访问端口，此处须与port参数保持一致，即填写“8188”
+
+![workdir](./pic/workdir.png)
+
+4. 点击Submit后提交任务，等待安装并运行
+
+5. 安装完成后，点击session下的端口名称右侧的箭头，即可打开网页通过浏览器访问服务。
+
+![comfyUI](./pic/comfyUI.png)
 
 
 ## 充值与计费
 
 ### 充值
 
-当前仅支持通过支付宝在线支付，同时推荐您添加客服企业微信，获取最新活动与优惠政策。
-
-### 发票
-
-AladdinEdu平台支持开票，项目名称为“技术服务费”。如有开票需求，可联系客服办理。
-
-### 计费
-
-AladdinEdu平台目前采用订阅制计费方式。用户可订阅不同类型套餐，套餐权益见下表：
+AladdinEdu平台目前采用订阅制。用户可订阅不同类型套餐以购买算力，套餐权益见下表：
 | 套餐名称               | 尝鲜版 | 初级版 | 高级版 | 扩展包 |
 |:---------------------:|:------:|:------:|:------:|:------:|
 | 套餐内算力/DCU        | 20     | 56.6   | 500    | 10     |
@@ -501,8 +660,15 @@ AladdinEdu平台目前采用订阅制计费方式。用户可订阅不同类型�
 | 非教育用户费用/元     | 135    | 365    | 3100   | 67.5    |
 | 教育用户费用/元        | 119    | 325    | 2750   | 59.5     |
 
-> DCU，即度，AladdinEdu平台采用的算力基本计量单位，1DCU=A100（80GB SXM版）实际运行[^实际运行]1h（1DCU=312TFLOPS*1hour）。
+> DCU，即度，AladdinEdu平台采用的算力基本计量单位，1 DCU =312 TFLOPS *1 hour。
 
+您可在AladdinEdu平台直接订阅套餐，目前仅支持通过支付宝在线支付。**同时推荐您添加客服企业微信，获取最新活动与优惠政策。**
+### 发票
+
+AladdinEdu平台支持开票，项目名称为“技术服务费”。如有开票需求，可联系客服办理。
+
+### 计费
+#### GPU计费
 AladdinEdu平台目前提供两种GPU，规格如下：
 | 规格参数               | DC100（Hopper）40G         | DC100（Hopper）80G         |
 |:-----------------------:|:---------------------------:|:---------------------------:|
@@ -511,6 +677,23 @@ AladdinEdu平台目前提供两种GPU，规格如下：
 | 并行度占用        | 1                         | 2                         |
 
 >1 * DC100（Hopper）40G + 2 * DC100（Hopper）80G <= 订阅套餐的最大并行度
+#### 文件存储计费
+
+按实际使用量弹性计费，每个套餐包含的免费存储额度以官网展示为准。
+
+- 计费规则：
+
+（1）系统将以当日（自然日）使用的最大容量为计费容量，超出免费容量的费用（元/日） = 超出容量（GB） × 0.0015DCU/GB/日，次日凌晨扣除当日费用；
+
+举例：尝鲜版套餐用户享有30G免费存储空间，如果当日使用的最大容量为50GB，那么当日产生的文件存储费用 = (50 - 30) × 0.0015 = 0.003DCU。
+
+（2）如超出容量不足1GB，按1GB计算;
+
+（3）账户余额不足时，将优先保留数据，并产生计费，平台不会立即清理您的数据。如账号欠费超10DCU，平台将保留清理数据的权力（考虑到数据的重要性，会谨慎考虑清理用户数据）。如因平台未及时清理数据导致持续扣费，超出10DCU的欠额平台将为您使用扩展包补欠额。
+
+举例：账户欠费5DCU，将由用户自行承担5DCU欠额；此时平台仍持续扣费，致欠费达20DCU，此时用户可联系客服补10DCU代金券。
+
+
 
 ### 结转
 套餐有效期为30天，期间未消耗的算力将且仅将结转30天，结转后的算力处于未激活状态。在结转周期内再次订阅，这部分算力将被激活，但无法再次结转；若无再次订阅，这部分算力将无法继续使用。
