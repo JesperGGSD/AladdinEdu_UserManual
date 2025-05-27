@@ -34,8 +34,16 @@ plugin:
 #GitHub加速
 git config --global url."https://gh-proxy.com/github.com/".insteadOf "https://github.com/"
 
-#Huggingface加速
-export HF_ENDPOINT=https://hf-mirror.com
+#Huggingface模型缓存
+export HF_ENDPOINT=http://hfmirror.mas.zetyun.cn:8082
+
+#查看缓存模型列表
+curl http://hfmirror.mas.zetyun.cn:8082/repos
+
+#huggingface cli下载模型
+huggingface-cli download --resume-download Qwen/Qwen2.5-1.5B-Instruct --local-dir Qwen/Qwen2.5-1.5B-Instruct
+huggingface-cli download --resume-download Qwen/Qwen2.5-14B-Instruct  --local-dir Qwen/Qwen2.5-14B-Instruct
+
 ```
 
 ## 快速开始
@@ -504,6 +512,15 @@ A：这是由于workshop占用的CPU资源过多，导致GPU任务启动时资�
   
   将当前workshop的资源调整为2核4G（右击当前workshop，Edit），**重启workshop后**即可正常运行GPU任务。
 
+Q：数据加载速度很慢，怎么解决?
+
+A：您可根据数据大小尝试以下两种优化方法。
+
+- 方法1：使用多进程，从磁盘中读取数据 --> 需在dataloader里设置多CPU并行，
+80G和40G卡可分别使用10核和5核CPU帮助处理数据；
+
+- 方法2：从内存中读取数据，限数据集小于等于30G时 --> 将数据集copy到/dev/shm目录下，即可使用内存加载数据。
+  
 ***
 
 ### 端口转发
