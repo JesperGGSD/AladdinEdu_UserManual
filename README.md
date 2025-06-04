@@ -1,10 +1,10 @@
 ---
-title: "UserManual_v1.2"
-date: May 20, 2025
+title: "UserManual_v1.2.3"
+date: June 4, 2025
 output: pdf_document
 plugin: 
   name: "Aladdin"
-  version: "2.2.6"
+  version: "2.2.8"
 ---
 # AladdinEdu使用手册
 
@@ -114,7 +114,7 @@ workshop为Aladdin插件的编码区，可在本地VSCode中连接远程服务�
 | **ENV**        | 当前workshop运行时的环境变量                                         | 可用于配置应用参数、API密钥等敏感信息                                |
 
 
->注：目前不支持保存私有镜像。如需安装任何**自定义包**，此处镜像可**随意选择**。
+> 注：目前不支持保存私有镜像。如需安装任何**自定义包**，此处镜像可**随意选择**。
 
 
 - 镜像介绍
@@ -123,8 +123,13 @@ workshop为Aladdin插件的编码区，可在本地VSCode中连接远程服务�
 |:--------:|:-----------:|:------------------------------------------------------------------------|
 | torch    | 2.5.1-cu124 | **核心包:**<br>`torch==2.5.1` `torchvision==0.20.1` `torchaudio==2.5.1` `cuda==12.4`<br>**附加包:**<br>`datasets` `transformers` `scikit-learn` `peft` `tiktoken` `blobfile` `sentencepiece` `protobuf` `deepspeed` |
 | torch    | 2.6.0-cu124 | **核心包:**<br>`torch==2.6.0` `torchvision==0.21.0` `torchaudio==2.6.0` `cuda==12.4`<br>**附加包:**<br>同 2.5.1 版本 |
-| python | 3.10/3.11/3.12/3.13 | 纯净Python环境 |
+| jupyter-lab | 4.4.2 | **核心包:**<br>`jupyterlab==4.4.2` `torch==2.5.1+cu124` `cuda==12.4` |
+|llama-factory | v0.9.3.dev0-cuda12.4-cudnn9-devel |**核心包:** <br>`llamafactory==0.9.3` `peft==0.15.1` `trl==0.9.6`<br>`accelerate==1.6.0` `transformers==4.51.3`<br>`torch==2.7.0` `cuda==12.4` | 
+|llama-factory | v0.9.3.dev0-cuda12.1-cudnn9-devel |**核心包:** <br>`llamafactory==0.9.3` `peft==0.15.1` `trl==0.9.6`<br>`accelerate==1.6.0` `transformers==4.51.3`<br>`torch==2.7.0` `cuda==12.1` | 
+|python | 3.10/3.11/3.12/3.13 | 纯净Python环境 |
 | ubuntu   | 22.04       | 纯净 Ubuntu 22.04 系统                                                  |
+> 注：jupyter-lab和llama-factory镜像均已配conda。如您选用jupyter-lab和llam-factory作为workshop的基础镜像，后续配置环境时无需再手动安装conda。
+
 
 3. 点击提交后会出现插件的状态提示，配置预计在2min左右完成，提示由“Workshop is waiting for creating.”变为“Workshop is created.”：
 
@@ -321,11 +326,12 @@ if __name__ == "__main__":
     test_training()
 ```
 
-6. 将以上代码复制到test.py中，在代码区右击GPU RUN运行。将资源选择为GPU，其余不变：
-
+6. 将以上代码复制到test.py中，在代码区右击GPU RUN运行。将资源选择为GPU，python解释器按需选择，其余不变：
 ![conda6](./pic/conda6.png)
 ![conda6](./pic/conda6-1.png)
-
+> 若选择Save as configuration保存当前参数设置，之后调用GPU时将弹出Quick GPU Run窗口，列出内容为保存的Configuration。您可直接选用以快捷启用GPU run，或通过+ New Create重新设置参数。
+> ![conda6](./pic/conda6-2.png)
+> 
 输出内容案例：
 ```
 ======= CUDA 测试 =======
