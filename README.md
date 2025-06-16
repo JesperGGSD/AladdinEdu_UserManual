@@ -388,7 +388,7 @@ docker push registry.hd-01.alayanew.com:8443/aladdinedu-e3fadb18-a994-470f-9a5
 
    如需将在workshop中使用的环境保存到私有镜像中，可按如下步骤操作。**需注意，以下步骤要求workshop为running状态。**
 
-1. **启动workshop**，右键选择“Save Env”：
+1. **启动workshop**， 右键选择“Save Env”：
 ![saveEnv](./pic/saveEnv.png)
 2. 选择私有镜像仓库，回车：
 ![saveEnv1](./pic/saveEnv1.png)
