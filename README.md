@@ -17,7 +17,7 @@ plugin:
 🔹教学视频：[AladdinEdu平台使用教程（VSCode版）](https://www.bilibili.com/video/BV1bKLjz7EQk/?share_source=copy_web&vd_source=785ba0f4a2bb0a864e047ca2c9d18fed
 ) 
 
-🔹AladdinEdu，同学们用得起的H卡算力平台。
+🔹[AladdinEdu，同学们用得起的H卡算力平台](https://www.aladdinedu.com/)。
 
 🔹必看文档：
 
