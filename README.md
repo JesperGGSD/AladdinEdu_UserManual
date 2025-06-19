@@ -1,6 +1,6 @@
 ---
-title: "UserManual_v1.2.4"
-date: June 16, 2025
+title: "UserManual_v1.3.0"
+date: June 19, 2025
 output: pdf_document
 plugin: 
   name: "Aladdin"
@@ -14,9 +14,10 @@ plugin:
 
 🔹欢迎关注公众号“九章云极AladdinEdu”，获取更多活动与福利！
 
-🔹教学视频：【AladdinEdu平台使用教程（VSCode版）】 https://www.bilibili.com/video/BV1bKLjz7EQk/?share_source=copy_web&vd_source=785ba0f4a2bb0a864e047ca2c9d18fed
+🔹教学视频：[AladdinEdu平台使用教程（VSCode版）](https://www.bilibili.com/video/BV1bKLjz7EQk/?share_source=copy_web&vd_source=785ba0f4a2bb0a864e047ca2c9d18fed
+) 
 
-🔹AladdinEdu，同学们用得起的算力平台。
+🔹AladdinEdu，同学们用得起的H卡算力平台。
 
 🔹必看文档：
 
@@ -25,6 +26,14 @@ plugin:
     2. [数据](#数据)
   
     3. [充值与计费](#充值与计费)
+
+使用流程图：
+
+   ![pic1](./pic/pic1.png)
+
+架构图：
+
+   ![frame](./pic/frame.png)
 
 # 学术资源加速
 
@@ -50,14 +59,6 @@ huggingface-cli download --resume-download Qwen/Qwen2.5-14B-Instruct  --local-di
 
 >AladdinEdu的使用主要分为三步，workshop创建 > 环境配置 > GPU调用，以下内容将围绕此流程展开。
 
-使用流程图：
-
-![pic](./pic/pic.png)
-
-架构图：
-
-![frame](./pic/frame.png)
-
 ## 插件初始化
 
 _本节预计完成时间：2min_
@@ -67,27 +68,28 @@ _本节预计完成时间：2min_
 
 1. 在扩展中搜索Aladdin，点击安装：
 
-![install1](./pic/vs1.png)
+   ![install1](./pic/vs1.png)
 
 2. 安装完成后可在活动栏看到Aladdin插件图标，安装成功：
 
-![install2](./pic/vs2.png)
+   ![install2](./pic/vs2.png)
 
 ### 账号登录
+以VSCode版本为例
 
-1. 以VSCode版本为例，点击Aladdin插件图标，选择Login Personal Account，弹窗后选择“打开”外部网站（AladdinEdu平台）：
+1. 点击Aladdin插件图标，选择Login Personal Account，弹窗后选择“打开”外部网站（AladdinEdu平台）：
 
-![login1](./pic/login1.png)
+   ![login1](./pic/login1.png)
 
 2. 在AladdinEdu平台中使用手机号或账号密码登录，首次使用者请先注册：
 
-![login2](./pic/login2.png)
+   ![login2](./pic/login2.png)
 
 3. 登录成功后点击“点击返回VSCode”，等待返回VSCode（如未自动跳转，请**手动**返回VSCode）。此时VSCode中出现弹窗，选择“打开”此URL，提示登录成功：
 
-![login3](./pic/login3.png)
+   ![login3](./pic/login3.png)
 
-![login4](./pic/login4.png)
+   ![login4](./pic/login4.png)
 
 ## workshop创建
 
@@ -99,11 +101,11 @@ workshop为Aladdin插件的编码区，可在本地VSCode中连接远程服务�
 
 1. 在workshop菜单栏中点击 **+**，新建workshop：
 
-![workshop1](./pic/workshop1.png)
+   ![workshop1](./pic/workshop1.png)
 
 2. 填写workshop名称，选择基础镜像与资源（推荐选择“CPU:4 MEM:16G”）：
 
-![workshop2](./pic/workshop2.png)
+   ![workshop2](./pic/workshop2.png)
 
 - workshop启动参数介绍
 
@@ -113,93 +115,39 @@ workshop为Aladdin插件的编码区，可在本地VSCode中连接远程服务�
 | **Resource**    | 当前workshop启动时分配到的CPU和内存资源                                    | 这些资源与GPU运行时是共享的，<br>GPU资源详情请查看[GPU调用](#gpu调用) |
 | **ENV**        | 当前workshop运行时的环境变量                                         | 可用于配置应用参数、API密钥等敏感信息                                |
 
-
-> 注：目前不支持保存私有镜像。如需安装任何**自定义包**，此处镜像可**随意选择**。
-> 注：目前不支持保存私有镜像。如需安装任何**自定义包**，此处镜像可**随意选择**。
-
-
-- 镜像介绍
-
-| 镜像类型 | 版本标签    | 包含内容                                                                 |
-|:--------:|:-----------:|:------------------------------------------------------------------------|
-| torch    | 2.5.1-cu124 | **核心包:**<br>`torch==2.5.1` `torchvision==0.20.1` `torchaudio==2.5.1` `cuda==12.4`<br>**附加包:**<br>`datasets` `transformers` `scikit-learn` `peft` `tiktoken` `blobfile` `sentencepiece` `protobuf` `deepspeed` |
-| torch    | 2.6.0-cu124 | **核心包:**<br>`torch==2.6.0` `torchvision==0.21.0` `torchaudio==2.6.0` `cuda==12.4`<br>**附加包:**<br>同 2.5.1 版本 |
-| jupyter-lab | 4.4.2 | **核心包:**<br>`jupyterlab==4.4.2` `torch==2.5.1+cu124` `cuda==12.4` |
-|llama-factory | v0.9.3.dev0-cuda12.4-cudnn9-devel |**核心包:** <br>`llamafactory==0.9.3` `peft==0.15.1` `trl==0.9.6`<br>`accelerate==1.6.0` `transformers==4.51.3`<br>`torch==2.7.0` `cuda==12.6` | 
-|llama-factory | v0.9.3.dev0-cuda12.1-cudnn9-devel |**核心包:** <br>`llamafactory==0.9.3` `peft==0.15.1` `trl==0.9.6`<br>`accelerate==1.6.0` `transformers==4.51.3`<br>`torch==2.7.0` `cuda==12.1` | 
-|python | 3.10/3.11/3.12/3.13 | 纯净Python环境 |
-| ubuntu   | 22.04       | 纯净 Ubuntu 22.04 系统                                                  |
-> 注：jupyter-lab和llama-factory均已配conda。如您选用jupyter-lab和llam-factory作为workshop的基础镜像，后续配置环境时无需再手动安装conda。
-
+- 镜像介绍可查看[配置环境](#配置环境)
 
 3. 点击提交后会出现插件的状态提示，配置预计在2min左右完成，提示由“Workshop is waiting for creating.”变为“Workshop is created.”：
 
-![workshop3](./pic/workshop3-2.png)
+   ![workshop3](./pic/workshop3-2.png)
 
 4. 此时会弹出一个新窗口（后文统称为**远端页面**），选择"Linux"，之后远端页面中将自动安装相关插件：
 
-![workshop4](./pic/workshop4.png)
+   ![workshop4](./pic/workshop4.png)
 
 5. 等待远端页面中出现Aladdin插件图标，workshop创建完成：
 
-![workshop5](./pic/workshop5.png)
-***
-### 常见问题
-Q：启动workshop时Environment栏无内容，如何处理？
+   ![workshop5](./pic/workshop5.png)
 
-A：网络延迟或设备卡顿引起，稍等片刻即可。
+>若您3天以上未调用GPU，workshop将会**自动停止**。但请不用担心，workshop停止不会影响其中运行的GPU任务，下次使用重新启动即可~
 
-Q：启动workshop后提示填写localhost密码，如何处理？
+## 运行Demo
 
-A：这种情况下是由于您当前设备中可访问 ~/.ssh 或 ~/.alaya/ssh 的用户过多，删除至仅当前登录用户可访问即可恢复正常，点击查看[解决方案链接](https://blog.csdn.net/chaoenhu/article/details/103698804)。
-
-Q：workshop打开远端页面失败，提示“无法与‘创建的workshop’建立连接”。
-
-A：需要检查本地是否启动了全局代理模式的科学上网。如有，可尝试关闭后再重启。也可在本地终端中使用以下命令检查ssh连接是否正常。
-
-``` bash
-ssh -vv [出现的问题的workshop名称].bj1
-```
-
-Q：远端页面提示“无法激活‘Aladdin’拓展”/远端页面中未显示Aladdin插件图标，如何处理？
-
-A：在远端页面中卸载Aladdin插件，然后在本地的VSCode中右击有问题的workshop，点击"Install Remote"手动安装。
-
-Q：我在workshop中装了gcc，为什么GPU Run时无法使用？
-
-A：任何没有装在/root目录下的文件都不会被保存，通过重启workshop或启动GPU Run等都不会生效。后续保存镜像功能上线后，可通过保存镜像即可解决。
-
-Q：workshop中报错“无法激活 ‘Aladdin’ 扩展, 因为它依赖于未加载的 ‘Remote - SSH: Editing Configuration Files’ 扩展。是否要重新加载窗口以加载扩展名？”
-
-A：将远端页面中的Aladdin插件卸载即可，注意需保留Aladdin Remote插件。或通过在远端页面终端中执行命令卸载，命令如下：
-``` bash
-#VSCode版本
-code --uninstall-extension AlayaNeW.aladdin
-
-#Cursor版本
-cursor --uninstall-extension AlayaNeW.aladdin
-
-```
-
-如您的问题仍无法解决，可关注公众号“九章云极AladdinEdu”，点击菜单栏中的“问题反馈”，根据问卷提示填写相应报错信息，等待工作人员联系。
-***
-## 配置环境
-
-_本节预计完成时间：约5min_
+_本节预计完成时间：约1min_
 _以下操作均在远端页面中进行。_
 
-由于目前保存镜像功能暂未上线，直接将包装在镜像中将无法正常使用。**因此，如需自定义安装python包，均需从零开始配置环境**。
+<!-- 由于目前保存镜像功能暂未上线，直接将包装在镜像中将无法正常使用。**因此，如需自定义安装python包，均需从零开始配置环境**。
 >注：强烈推荐按照本文说明，使用miniconda做环境配置。
 
 1. workshop创建成功后，进入远端页面，选择打开/root目录：
 
-![conda1](./pic/conda1.png)
+   ![conda1](./pic/conda1.png)
 
 2. 新建终端，在终端中安装miniconda，并确认**安装在/root目录**下：
 
-![conda2](./pic/conda2.png)
+   ![conda2](./pic/conda2.png)
 
-![conda3](./pic/conda3.png)
+   ![conda3](./pic/conda3.png)
 
 - Conda配置方法
 
@@ -230,11 +178,11 @@ pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 或使用`Ctrl+Shift+P`快捷键打开命令窗口，输入"Select Interpreter"，更换python解释器。
 >**重要 ❗**：如不切换，调用GPU时将无法复用配置的环境，出现找不到已安装包的报错！
 
-![conda5](./pic/conda5.png)
+   ![conda5](./pic/conda5.png)
 
 4. 远端页面右下角的版本号出现conda环境名，环境切换成功：
 
-![conda4](./pic/conda4.png)
+   ![conda4](./pic/conda4.png)
 
 5. 接着安装torch，推荐安装12.4版以适配GPU：
 >配置科学上网后将显著提升下载安装速度，具体步骤参考[学术资源加速](#学术资源加速)。
@@ -242,8 +190,12 @@ pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 ```bash
 #安装cuda 12.4
 pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
-```
-   - 使用以下代码测试cuda是否安装成功，以及是否与当前环境GPU兼容：
+``` -->
+
+1. 新建test.py文件，将测试代码复制到文件中，**在代码区或对文件右击**，选择GPU RUN运行：
+
+   ![conda6](./pic/conda6.png)
+>使用以下代码测试cuda是否安装成功，以及是否与当前环境GPU兼容：
 
 ```python
 import torch
@@ -327,41 +279,88 @@ if __name__ == "__main__":
     test_training()
 ```
 
-6. 将以上代码复制到test.py中，在**代码区右击**GPU RUN运行。将资源选择为GPU，python解释器按需选择，其余不变：
-![conda6](./pic/conda6.png)
-![conda6](./pic/conda6-1.png)
-> 若选择Save as configuration保存当前参数设置，之后调用GPU时将弹出Quick GPU Run窗口，列出内容为保存的Configuration。您可直接选用以快捷启用GPU run，或通过+ New Create重新设置参数。
-> ![conda6](./pic/conda6-2.png)
-> 
+
+2. 修改启动选项：环境选择为torch，资源选择为GPU，python解释器按需选择，其余不变。提交运行：
+
+   ![conda6](./pic/conda6-1.png)
+> 若选择Save as configuration保存当前参数设置，之后调用GPU时将弹出Quick GPU Run窗口，列出内容为保存的Configuration。您可直接选用以快捷启用GPU Run，或通过+ New Create重新设置参数。
+>    ![conda6](./pic/conda6-2.png)
+
 输出内容案例：
 ```
 ======= CUDA 测试 =======
  PyTorch CUDA 可用: ✅是
  PyTorch CUDA 版本: 12.4
- 当前 GPU 设备: [你选择的设备]
+ 当前 GPU 设备: [你选择的显卡]
  GPU 数量: 1
 ========================
 
 ======= GPU 速度测试 =======
- CPU 计算时间: 0.0487 秒
- GPU 计算时间: 0.0975 秒
- GPU 比 CPU 快: 0.5 倍
+ CPU 计算时间: 0.1339 秒
+ GPU 计算时间: 0.0078 秒
+ GPU 比 CPU 快: 17.3 倍
 ==========================
 
 ======= 简单训练测试 =======
 使用设备: CUDA
-Epoch 1, Loss: 0.9516
-Epoch 2, Loss: 0.9486
-Epoch 3, Loss: 0.9462
-Epoch 4, Loss: 0.9442
-Epoch 5, Loss: 0.9424
-总训练时间: 1.93 秒
+Epoch 1, Loss: 1.0850
+Epoch 2, Loss: 1.0827
+Epoch 3, Loss: 1.0805
+Epoch 4, Loss: 1.0784
+Epoch 5, Loss: 1.0763
+总训练时间: 0.17 秒
 ==========================
  
 ```
 
+# 配置环境
+
+## 概要
+
+AladdinEdu内置了部分公共镜像，启动workshop时选择公共镜像就会自带相应框架的软件。如果自带的框架版本或Python版本不满足需求，请自行配置其他版本的框架或尝试Python方法。
+
+1. 公共镜像
+
+| 镜像类型 | 版本标签    | 包含内容                                                                 |
+|:--------:|:-----------:|:------------------------------------------------------------------------|
+| torch    | 2.5.1-cu124 | **核心包:**<br>`torch==2.5.1` `torchvision==0.20.1` `torchaudio==2.5.1` `cuda==12.4`<br>**附加包:**<br>`datasets` `transformers` `scikit-learn` `peft` `tiktoken` `blobfile` `sentencepiece` `protobuf` `deepspeed` |
+| torch    | 2.6.0-cu124 | **核心包:**<br>`torch==2.6.0` `torchvision==0.21.0` `torchaudio==2.6.0` `cuda==12.4`<br>**附加包:**<br>同 2.5.1 版本 |
+| jupyter-lab | 4.4.2 | **核心包:**<br>`jupyterlab==4.4.2` `torch==2.5.1+cu124` `cuda==12.4` |
+|llama-factory | v0.9.3.dev0-cuda12.4-cudnn9-devel |**核心包:** <br>`llamafactory==0.9.3` `peft==0.15.1` `trl==0.9.6`<br>`accelerate==1.6.0` `transformers==4.51.3`<br>`torch==2.7.0` `cuda==12.6` | 
+|llama-factory | v0.9.3.dev0-cuda12.1-cudnn9-devel |**核心包:** <br>`llamafactory==0.9.3` `peft==0.15.1` `trl==0.9.6`<br>`accelerate==1.6.0` `transformers==4.51.3`<br>`torch==2.7.0` `cuda==12.1` | 
+|python | 3.10/3.11/3.12/3.13 | 纯净Python环境 |
+| ubuntu   | 22.04       | 纯净 Ubuntu 22.04 系统                                                  |
+> 注：jupyter-lab和llama-factory均已配conda。如您选用jupyter-lab和llam-factory作为workshop的基础镜像，后续配置环境时无需再手动安装conda。
+
+2. 安装其他版本的Python： 推荐使用Miniconda创建其他版本的Python虚拟环境
+
+```bash
+# 构建一个虚拟环境名为：myenv，Python版本为3.7
+conda create -n myenv python=3.7    
+
+# 更新bashrc中的环境变量
+conda init bash && source /root/.bashrc
+# 切换到创建的虚拟环境：my-env
+conda activate myenv
+
+# 验证
+python --version
+```
+
+3. 安装PyTorch： [参考链接](https://pytorch.org/get-started/previous-versions/)
+
+>❗ 注意：
+1️⃣ 通过Torch官方的conda安装命令，在国内安装的conda一般为非cuda版本，而是cpu版本（有bug），因此推荐用pip安装。并且，如果使用torch官方的pip命令，去掉-f/--index-url参数，这样可以走国内的pip源，速度更快；
+2️⃣ 平台中目前所提供显卡支持的最低cuda版本为11.8，过低版本可能会导致计算性能损失。
+
+4. 安装TensorFlow： [参考链接](https://www.tensorflow.org/install/pip?hl=zh-cn)
+
+- **推荐的使用姿势**
+  （1）如果平台内置的公共镜像中有您需要的Torch、TensorFlow等框架的相应版本，首选公共镜像。
+  （2）如果以上条件都不满足，推荐使用Ubuntu系统，并自行安装miniconda进行环境配置。
+
 ## 私有镜像
-AladdinEdu支持保存私有镜像，分为两种方式：上传私有镜像、保存workshop环境。私有镜像可在控制台的私有镜像仓库、本地VSCode的ENVIRONMENTS中查看。
+AladdinEdu支持保存私有镜像，分为两种方式：本地上传私有镜像、保存workshop环境镜像。私有镜像可在控制台的私有镜像仓库、本地VSCode的ENVIRONMENTS中查看。
 
 ### 上传私有镜像
 1. 打开电脑终端，逐条输入以下命令（以python3为例），推送成功后即成功在私有镜像仓库中新增镜像：
@@ -378,26 +377,27 @@ docker push registry.hd-01.alayanew.com:8443/aladdinedu-e3fadb18-a994-470f-9a5
 
 > 用户名、密码在控制台的私有镜像仓库页查看
 
-![image](./pic/image.png)
+   ![image](./pic/image.png)
 2. 在VSCode中登录Aladdin，并在Registry中填入私有镜像仓库的用户名、密码，登录私有镜像仓库：
-![login12](./pic/login12.png)
+   ![login12](./pic/login12.png)
 3. 此时，ENVIRONMENTS中可查看私有镜像仓库，其中列出了上传的私有镜像，在workshop、GPU配置页中可直接选择使用。
-![image1](./pic/image1.png)
+   ![image1](./pic/image1.png)
 
 ### 保存workshop环境
 
-   如需将在workshop中使用的环境保存到私有镜像中，可按如下步骤操作。**需注意，以下步骤要求workshop为running状态。**
+如需将在workshop中使用的环境保存到私有镜像中，可按如下步骤操作。<span style="color: red; font-weight: bold">需注意，以下步骤要求 workshop 为 running 状态。<Span/>
 
 1. **启动workshop**， 右键选择“Save Env”：
-![saveEnv](./pic/SaveEnv.png)
+   ![saveEnv](./pic/SaveEnv.png)
 2. 选择私有镜像仓库，回车：
-![saveEnv1](./pic/saveEnv1.png)
-3. 输入要保存的workshop环境名，回车
-![saveEnv2](./pic/saveEnv2.png)
+   ![saveEnv1](./pic/saveEnv1.png)
+3. 输入要保存的workshop环境名，回车：
+   ![saveEnv2](./pic/saveEnv2.png)
 4. 输入tag，回车，等待保存：
-![saveEnv3](./pic/saveEnv3.png)
-5. 选择yes，更新镜像：
-![saveEnv4](./pic/saveEnv4.png)
+   ![saveEnv3](./pic/saveEnv3.png)
+5. 选择yes，更新当前workshop镜像：
+   ![saveEnv4](./pic/saveEnv4.png)
+  > 如果选择no，保存的workshop环境不会作用于当前workshop。
 6. 更新成功后，私有镜像仓库中即会存有该环境，此时在workshop、GPU配置页中可选择使用该环境。
    
 
@@ -405,9 +405,9 @@ docker push registry.hd-01.alayanew.com:8443/aladdinedu-e3fadb18-a994-470f-9a5
 
 ## 概要
 
-AladdinEdu中目前所有存储均为网络盘形式的文件存储，各套餐权益所含存储免费额度与可扩展上限如下表：
+目前，AladdinEdu平台中的所有存储均为网络盘形式的文件存储，各套餐权益所含存储免费额度与可扩展上限见下表：
 
-| 套餐类型       | 免费套餐      | 尝鲜版   | 初级版   | 高级版   |
+| 套餐类型       | 体验版      | 尝鲜版   | 初级版   | 高级版   |
 |:----------------:|:---------:|:----------:|:----------:|:----------:|
 | 免费文件存储空间 | 30G     | 30G      | 60G      | 100G     |
 | 最大可扩展空间  | 不可扩展    | 500G     | 500G     | 2TB      |
@@ -427,31 +427,31 @@ AladdinEdu中目前所有存储均为网络盘形式的文件存储，各套餐�
 
 选择工作目录后，可通过直接拖拽至工作区来导入文件。
 
-![upload_folder](./pic/upload_folder.png)
+   ![upload_folder](./pic/upload_folder.png)
 
 ### 大文件传输（G级别文件，强烈推荐）
 
->推荐文件传输时，调整workshop的资源至可用范围内最大配额，保证传输过程稳定。
+>传输文件时，推荐调整workshop的资源至可用范围内最大配额，保证传输过程稳定。
 
 1. workshop创建成功后，查看ssh的配置文件：
 
 - 按`Ctrl+Shift+P`快捷键，选择“Remote-SSH: Open SSH Configuration File”
 
-![store1](./pic/store1.png)
-![store2](./pic/store2.png)
+   ![store1](./pic/store1.png)
+   ![store2](./pic/store2.png)
 
-- 在配置文件中找到workshop名称对应的Host，其中IdentityFile为密钥文件目录：
+- 在配置文件中找到workshop名称对应的Host，其中IdentityFile为密钥文件目录
 
-![store3](./pic/store3.png)
+   ![store3](./pic/store3.png)
 
 2. 配置sftp软件，以FlieZilla Client 为例
 <span style="color: red; font-weight: bold">连接、传输时需确保 workshop 处于 running 状态</span>
 
-![store4](./pic/store4.png)
+   ![store4](./pic/store4.png)
 
 3. 向/root目录下传输文件
 
-![store5](./pic/store5.png)
+   ![store5](./pic/store5.png)
 
 ### scp方式（推荐Mac用户及Linux用户使用）
 
@@ -469,20 +469,22 @@ scp -r ${workshop name}:/root/路径 /本地/路径
 
 # GPU调用
 
+## 概要
+
 >对python文件支持GPU Debug、GPU Run、Run Task；对shell文件支持Run Shell、Run Task。
 以上任务运行均与workshop状态无关，您可在任务运行时停止workshop。
 
 除了Run Task为训练态，其他功能均为开发态，即会有Log输出，但是不会保存。
 
-在对应文件中右击，点击相应功能后弹出如下配置页面：
-![gpu1](./pic/gpu1.png)
+1. **在代码区或对对应文件右击**，点击相应功能后弹出如下配置页面：
+   ![gpu1](./pic/gpu1.png)
 
 - 参数介绍
 
 | 参数名称                  | 说明                                                                 | 备注                                                                 |
 |---------------------------|----------------------------------------------------------------------|----------------------------------------------------------------------|
 | Configurations        | 查看已保存的配置信息                                                 | 可快速载入历史配置                                                   |
-| Environment          | GPU运行的基础镜像                                                   | <span style="color: red">※ 使用conda环境则此处选择的镜像无效</span> |
+| Environment          | GPU运行的基础镜像                                                   |强烈推荐与workshop的镜像保持一致 |
 | Resource              | GPU调用时分配到的资源                                                 | - 可选择显卡数量、型号<br>- 卡型号后内容为系统自动适配的CPU、内存<br><span style="color: red">※ 40G卡型暂不支持使用多卡</span> |
 | Save as configuration | 保存当前GPU调用配置                                                 | 勾选后可供下次直接调用                                               |
 | ENV                   | 环境变量配置                                                       | 支持键值对形式注入                                                   |
@@ -492,9 +494,9 @@ scp -r ${workshop name}:/root/路径 /本地/路径
 
 > "6C 80G"是指为每卡分配了6个CPU与80G内存，以此类推。**每并行度可用CPU数为10，内存为121G，超出后将报错超出quota**；
 
-调用GPU（所有类型）成功后，对Running状态下的进程可以通过右击远端页面中的 DEVELOP SESSION 进行下列操作：
+1. 提交调用GPU（所有类型）成功后，对Running状态下的进程，可以通过右击 DEVELOP SESSION 中的对应文件，进行下列操作：
 
-![gputask](./pic/gputask.png)
+   ![gputask](./pic/gputask.png)
 
 - 操作介绍
 
@@ -524,14 +526,14 @@ GPU Run提供与VSCode直接Run代码类似的开发态执行体验，运行Log�
 
 Run Task作为唯一训练态功能，可用于运行多worker分布式任务（torchrun）。此时GPU并行度=GPU数*worker数。
 
-![task1](./pic/task1.png)
+   ![task1](./pic/task1.png)
 
-运行Task时默认不会有Log输出。如需查看日志，需在session中等待Task状态切换为Running后，右击“View log”查看；或右击“copy path”，复制日志文件目录到终端中通过cd打开查看。
+运行Task时默认不会有Log输出。如需查看日志，需在session中等待Task状态切换为Running后，右击“View log”查看；或右击“copy path”，复制日志文件目录到终端中，通过cd打开查看。
 
 同时，Run Task支持在本地VSCode中查看或下载日志。
 
-![GPUtask](./pic/gputask3.png) 
-![GPUtask](./pic/gputask2.png)
+   ![GPUtask](./pic/gputask3.png) 
+   ![GPUtask](./pic/gputask2.png)
 
 - 操作介绍
 
@@ -543,49 +545,25 @@ Run Task作为唯一训练态功能，可用于运行多worker分布式任务（
 | Monitor  | 资源监视器，可查看CPU、内存、GPU使用情况 |
 | Delete   | 删除Task的日志信息           |
 
->本地VSVode中，该Delete功能会停止Task并删除日志信息。
+>本地VSCode中，Delete功能会停止Task并删除日志信息。
 
-***
-### 常见问题
-Q：调用GPU时报错如下该如何处理？ 
-```
-pods "run-xxxxx" is forbidden: exceeded quota: vks-xxx, requested: limits.cpu=26,limits.memory=400Gi,requests.cpu=26,requests.memory=400Gi, used: limits.cpu=2,limits.memory=8Gi,requests.cpu=2,requests.memory=8Gi, limited: limits.cpu=20,limits.memory=224Gi,requests.cpu=20,requests.memory=224Gi
-```
-
-A：这是由于workshop占用的CPU资源过多，导致GPU任务启动时资源不足。
-
-  解决方法：
-  
-  检查是否有多个workshop正在运行。如有，将其他workshop关闭。
-  
-  将当前workshop的资源调整为2核4G（右击当前workshop，Edit），**重启workshop后**即可正常运行GPU任务。
-
-Q：数据加载速度很慢，怎么解决?
-
-A：您可根据数据大小尝试以下两种优化方法。
-
-- 方法1：使用多进程，从磁盘中读取数据 --> 需在dataloader里设置多CPU并行，
-80G和40G卡可分别使用10核和5核CPU帮助处理数据；
-
-- 方法2：从内存中读取数据，限数据集小于等于30G时 --> 将数据集copy到/dev/shm目录下，即可使用内存加载数据。
-  
-***
 
 ## 端口转发
 
 ❗ **重要** ❗：
 
-1.如果远端服务使用结束，一定要记得手动delete shell任务，否则会一直占用GPU资源产生不必要的费用。
 
-2.所有server**必须绑定0.0.0.0**，不能使用127.0.0.1或localhost。
+1️⃣ 如果远端服务使用结束，一定要记得手动delete shell任务，否则会一直占用GPU资源，产生不必要的费用。
 
-3.暂不支持TCP协议，仅支持HTTP协议。
+2️⃣ 所有server**必须绑定0.0.0.0**，不能使用127.0.0.1或localhost。
+
+3️⃣ 暂不支持TCP协议，仅支持HTTP协议。
 
 ### 使用端口转发启动Jupyter
 
-1. 启动workshop，进入远端页面后，在资源管理器下点击“打开文件夹”，选择/root作为工作路径。
+1. 启动workshop，进入远端页面后，选择/root目录作为工作路径。
 
-![OpenFolder](./pic/OpenFolder.png) 
+   ![OpenFolder](./pic/OpenFolder.png) 
 
 2. 打开远端页面终端，输入以下命令安装Jupyter：
 ``` bash
@@ -600,7 +578,7 @@ pip install jupyter notebook
 jupyter --version
 ```
 
-  输出示例如下：
+  - 输出示例如下：
 
 ``` text
 Selected Jupyter core packages...
@@ -619,7 +597,7 @@ qtconsole        : not installed
 traitlets        : 5.14.3
 ```
 
-3. 在/root目录下新建.sh文件，输入以下命令
+3. 在/root目录下新建.sh文件，输入以下命令：
 
 ``` bash
 #激活包含jupyter的环境
@@ -627,33 +605,33 @@ conda activate [你的环境]
 
 jupyter notebook --allow-root --listen 0.0.0.0
 ```
-4. 在代码区右击选择Run Shell运行，通过任一方法添加端口：
+4. 在代码区或对.sh文件右击，选择Run Shell运行，通过任一方法添加端口：
  - **方法1**：通过Run Shell配置页<sup>1</sup>添加端口
- 展开“Advanced”后，点击“+Add External Access”<sup>2</sup>新建端口，输入端口号<sup>3</sup>（Jupyter Sever启动端口号默认“8888”），点击Submit提交
+ 展开“Advanced”后，点击“+Add External Access”<sup>2</sup>新建端口，输入端口号<sup>3</sup>（Jupyter Sever启动端口号默认为“8888”），提交运行
 
- ![runshell](./pic/runshell.png) 
+    ![runshell](./pic/runshell.png) 
 
  - **方法二**：Run Shell启动后，右击**Running**的session，选择“Add External Access”，在弹出窗口中输入端口号
 
- ![addport](./pic/addport.png)
+    ![addport](./pic/addport.png)
 
 >注意：.sh文件只有处于Running中才能新建端口，success或failed状态下，都不可新建端口。
 
 ### 访问端口
 1. Run Shell输出中打印了sever url后，点击session下的端口名称右侧的箭头，此时浏览器中弹出Jupyter网页：
 
-![portmapping](./pic/portmapping.png)
-![JupyterBrowser](./pic/JupyterBrowser.png)
+   ![portmapping](./pic/portmapping.png)
+   ![JupyterBrowser](./pic/JupyterBrowser.png)
 
 2. 在输出中找到token，在Juypter网页中填写，登录Jupyter服务器：
 
-![token](./pic/token.png)
+   ![token](./pic/token.png)
 3. 启动Jupyter服务器后，可借助Jupyter实现如下功能：
 
 - **功能1**：在浏览器中使用Jupyter
   通过Jupyter网页，可以看到/root目录下的所有文件，并在Jupyter中编译代码
 
-    ![jupyter1](./pic/jupyter1.png)
+     ![jupyter1](./pic/jupyter1.png)
 
 - **功能2**：在VSCode中使用Jupyter（**需提前安装Jupyter和Python插件**）
   （1）在workshop中新建.ipynb文件（Jupyter文件）
@@ -702,7 +680,7 @@ jupyter notebook --allow-root --listen 0.0.0.0
 ``` bash
 git clone https://gh-proxy.com/github.com/comfyanonymous/ComfyUI.git
 ```
-![clonecomfyUI](./pic/clonecomfyUI.png)
+   ![clonecomfyUI](./pic/clonecomfyUI.png)
 
 2. 下载完成后，在ComfyUI文件夹下新建run.sh文件，将以下代码复制到run.sh文件中：
 ``` bash
@@ -711,18 +689,84 @@ pip install torch torchvision torchaudio --extra-index-url https://download.pyto
 pip install -r requirements.txt -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple
 python main.py --listen 0.0.0.0 --port 8188
 ```
-3. 在代码区右击，选择Run Shell运行，填写配置时需注意：
+3. 在代码区或对文件右击，选择Run Shell运行，填写配置时需注意：
 - 若打开文件目录为/root，则需在高级配置的“Work Dir”中填写文件路径，即“ComfyUI” 
 - 添加外部访问端口，此处须与port参数保持一致，即填写“8188”
 
-![workdir](./pic/workdir.png)
+   ![workdir](./pic/workdir.png)
 
 4. 点击Submit后提交任务，等待安装并运行
 
-5. 安装完成后，点击session下的端口名称右侧的箭头，即可打开网页通过浏览器访问服务。
+5. 安装完成后，点击session下的端口名称右侧的箭头，即可打开网页，通过浏览器访问服务。
 
-![comfyUI](./pic/comfyUI.png)
+   ![comfyUI](./pic/comfyUI.png)
 
+
+# 常见问题
+
+## workshop相关问题
+
+**Q：启动workshop时Environment栏无内容，如何处理？**
+
+✅ 网络延迟或设备卡顿引起，稍等片刻即可。
+
+**Q：启动workshop后提示填写localhost密码，如何处理？**
+
+✅ 这种情况下是由于您当前设备中可访问 ~/.ssh 或 ~/.alaya/ssh 的用户过多，删除至仅当前登录用户可访问即可恢复正常，点击查看[解决方案链接](https://blog.csdn.net/chaoenhu/article/details/103698804)。
+
+**Q：workshop打开远端页面失败，提示“无法与 ‘创建的workshop’ 建立连接”。**
+
+✅ 需要检查本地是否启动了全局代理模式的科学上网。如有，可尝试关闭后再重启。也可在本地终端中使用以下命令检查ssh连接是否正常。
+
+``` bash
+ssh -vv [出现的问题的workshop名称].bj1
+```
+
+**Q：远端页面中未显示Aladdin插件图标，如何处理？**
+
+✅ 在远端页面中卸载Aladdin插件，然后在本地的VSCode中右击有问题的workshop，点击"Install Remote"手动安装。
+
+**Q：在workshop中装了gcc，为什么GPU Run时却无法使用？**
+
+✅ 任何没有装在/root目录下的文件都不会被保存，类似情况可通过保存镜像解决。
+
+**Q：workshop中报错“无法激活 ‘Aladdin’ 扩展, 因为它依赖于未加载的 ‘Remote - SSH: Editing Configuration Files’ 扩展。是否要重新加载窗口以加载扩展名？”**
+
+✅ 将远端页面中的Aladdin插件卸载即可，注意需**保留Aladdin Remote**插件。或通过在远端页面终端中执行命令卸载，命令如下：
+``` bash
+#VSCode版本
+code --uninstall-extension AlayaNeW.aladdin
+
+#Cursor版本
+cursor --uninstall-extension AlayaNeW.aladdin
+
+```
+
+🎈如您的问题仍无法解决，可关注微信服务号“九章云极AladdinEdu”，点击菜单栏中的“限时活动” > “全民找bug”，根据问卷提示填写相应报错信息，等待工作人员联系。
+
+## GPU调用相关问题 
+
+Q：调用GPU时出现如下报错，该如何处理？ 
+```
+pods "run-xxxxx" is forbidden: exceeded quota: vks-xxx, requested: limits.cpu=26,limits.memory=400Gi,requests.cpu=26,requests.memory=400Gi, used: limits.cpu=2,limits.memory=8Gi,requests.cpu=2,requests.memory=8Gi, limited: limits.cpu=20,limits.memory=224Gi,requests.cpu=20,requests.memory=224Gi
+```
+
+✅ 这是由于workshop占用的CPU资源过多，导致启动时GPU任务资源不足。
+
+  解决方法：
+  
+  - 检查是否有多个正在运行的workshop。如有，将其他workshop关闭。
+  
+  - 将当前workshop的资源调整为2核4G（右击当前workshop > Edit > **重启workshop**），重启workshop后即可正常运行GPU任务。
+
+Q：数据加载速度很慢，该如何解决?
+
+✅ 您可根据数据大小尝试以下两种优化方法。
+
+- 方法1：使用多进程，从磁盘中读取数据 --> 需在dataloader里设置多CPU并行，
+80G和40G卡可分别使用10核和5核CPU帮助处理数据；
+
+- 方法2：从内存中读取数据，限数据集小于等于30G时 --> 将数据集copy到/dev/shm目录下，即可使用内存加载数据。
 
 # 充值与计费
 
@@ -733,8 +777,8 @@ AladdinEdu平台目前采用订阅制。用户可订阅不同类型套餐以购�
 |:---------------------:|:------:|:------:|:------:|:------:|:------:|
 | 套餐内算力/DCU        | 5.12     | 20     | 270   | 2400    | 10     |
 | GPU并行度             | 1      | 2      | 4      | 8      | -      |
-| 免费存储空间/G        | 30|30     | 60     | 100    | -      |
-| 最大可扩展存储空间/G        | 不可扩展 |500     | 500     | 2000    | -      |
+| 免费存储空间/G        | 30      |30     | 60     | 100    | -      |
+| 最大可扩展存储空间/G   | 不可扩展 |500     | 500     | 2000    | -      |
 | 非教育用户费用/元     |注册即送| 198    | 2500    | 21000   | 99    |
 | 教育用户费用/元        | 注册即送| 158    | 2000    | 16800   | 79     |
 
@@ -756,7 +800,7 @@ AladdinEdu平台目前提供两种GPU，规格如下：
 | 算力定价          | 1.28 DCU/H                | 2.56 DCU/H                |
 | 并行度占用        | 1                         | 2                         |
 
->1 * DC100（Hopper）40G + 2 * DC100（Hopper）80G <= 订阅套餐的最大并行度
+>权益：1 * DC100（Hopper）40G + 2 * DC100（Hopper）80G <= 订阅套餐的最大并行度
 ### 文件存储计费
 
 按实际使用量弹性计费，每个套餐包含的免费存储额度以官网展示为准。
