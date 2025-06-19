@@ -103,7 +103,7 @@ workshop为Aladdin插件的编码区，可在本地VSCode中连接远程服务�
 
    ![workshop1](./pic/workshop1.png)
 
-2. 填写workshop名称，选择基础镜像与资源（推荐选择“CPU:4 MEM:16G”）：
+2. 填写workshop名称，选择基础镜像与资源（推荐选择“CPU:2 MEM:8G”）：
 
    ![workshop2](./pic/workshop2.png)
 
@@ -192,8 +192,8 @@ pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
 ``` -->
 
-1. 新建test.py文件，将测试代码复制到文件中，**在代码区或对文件右击**，选择GPU RUN运行：
-
+1. 打开/root目录文件夹，新建test.py文件，将测试代码复制到文件中，**在代码区或对文件右击**，选择GPU RUN运行：
+   ![workshop0](./pic/workshop0.png)
    ![conda6](./pic/conda6.png)
 >使用以下代码测试cuda是否安装成功，以及是否与当前环境GPU兼容：
 
