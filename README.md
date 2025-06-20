@@ -476,10 +476,10 @@ scp -r ${workshop name}:/root/路径 /本地/路径
 
 除了Run Task为训练态，其他功能均为开发态，即会有Log输出，但是不会保存。
 
-1. **在代码区或对对应文件右击**，点击相应功能后弹出如下配置页面：
-   ![gpu1](./pic/gpu1.png)
+### 配置页参数介绍
 
-- 参数介绍
+**在代码区或对对应文件右击**，点击相应功能后弹出如下配置页面：
+   ![gpu1](./pic/gpu1.png)
 
 | 参数名称                  | 说明                                                                 | 备注                                                                 |
 |---------------------------|----------------------------------------------------------------------|----------------------------------------------------------------------|
@@ -494,17 +494,17 @@ scp -r ${workshop name}:/root/路径 /本地/路径
 
 > "6C 80G"是指为每卡分配了6个CPU与80G内存，以此类推。**每并行度可用CPU数为10，内存为121G，超出后将报错超出quota**；
 
-1. 提交调用GPU（所有类型）成功后，对Running状态下的进程，可以通过右击 DEVELOP SESSION 中的对应文件，进行下列操作：
+### 常用功能介绍
+
+提交调用GPU（所有类型）成功后，对**Running状态**下的进程，可以通过右击 DEVELOP SESSION 中的对应session，进行下列操作：
 
    ![gputask](./pic/gputask.png)
 
-- 操作介绍
-
 | 操作       | 功能描述                     | 使用场景               |
 |:----------:|:---------------------------:|:---------------------:|
-| Terminal   | 打开运行终端，实时查看进程状态和GPU使用率 | 实时监控任务状态       |
+| Terminal   | 打开运行终端，实时查看进程状态和GPU使用率 | 使用nvidia-smi或nvi-top实时监控GPU状态      |
 | View Log   | 查看任务实时/历史运行日志      | 检查执行结果和错误     |
-| Copy Path  | 复制log目录路径（Run Task专属） | 在终端快速访问日志目录 |
+| Copy Path  | 复制log目录路径（Run Task功能专属） | 在终端快速访问日志目录 |
 | Delete     | 手动终止进程并释放资源        | 停止异常任务          |
 
 ## GPU Debug
@@ -547,13 +547,63 @@ Run Task作为唯一训练态功能，可用于运行多worker分布式任务（
 
 >本地VSCode中，Delete功能会停止Task并删除日志信息。
 
+## 命令行执行GPU调用
+
+❗ **重要** ❗：
+
+1️⃣ 使用命令行连接workshop前，需要至少**打开**一次对应的workshop。
+
+2️⃣ 使用期间需要保持**本地**VSCode处于打开状态，不能关闭。
+
+3️⃣ 暂时无法使用命令行查看日志，预计在下版本中增加。
+
+1. Open需要通过命令行连接的workshop，然后在本地VSCode终端中使用ssh连接，注意远程服务器地址是 [即将连接的workshop名称]+.bj1：
+
+   ![tcl1](./pic/tcl1.png) 
+
+2. 在终端中输入aladdin -h，查看可用命令及其相关用法：
+
+   ![tcl2](./pic/tcl2.png) 
+
+3. 同样地，也可以用相同方法查看以上各命令的使用方法和相关参数：
+   >注：若仅使用CPU运行任务，需要对 --cpu int 和 --mem int 两个参数进行赋值修改。若使用GPU运行任务，则这两个参数是固定值，无法修改。
+
+   ![tcl3](./pic/tcl3.png) 
+
+4. 以快速开始中的Demo为例，使用80G GPU卡的运行命令为：
+
+   ```bash
+   aladdin run -f gputest.py --gpu-type nvidia.com/gpu-h100-80gb-hbm3 --gpu-count 1 --image registry.hd-01.alayanew.com:8443/aladdin/torch:2.6.0-cu124
+   ```
+
+   输出示例如下，其中可以看到启动GPU任务时的参数信息，并且自动修正了CPU和内存的大小：
+   ```bash
+   2025/06/20 09:57:12 [WARNING] Fix Cpu to 13, Mem to 200, because gpu-type is nvidia.com/gpu-h100-80gb-hbm3, gpu-count is 1
+   2025/06/20 09:57:12 
+   File            : gputest.py
+   Image           : registry.hd-01.alayanew.com:8443/aladdin/torch:2.6.0-cu124
+   Resource        : Cpu: 13(H), Mem: 200(GB), Gpu: nvidia.com/gpu-h100-80gb-hbm3(1)
+   PythonEnv       : /usr/bin/python
+   DeleteSession   : false
+   SaveAsConfig    :
+   Env             :
+   Args            :
+   WorkDir         : /root
+   Ports           : []
+
+   2025/06/20 09:45:24 start success. name: run-6056d7a71bd549a0b2, id: d828bfc2-1b57-4d28-b64f-f0bbb0be0df6
+   ```
+
+5. 日志查看命令正在开发中，目前仅可通过Session的View Log功能查看：
+
+   ![tcl4](./pic/tcl4.png) 
 
 ## 端口转发
 
 ❗ **重要** ❗：
 
 
-1️⃣ 如果远端服务使用结束，一定要记得手动delete shell任务，否则会一直占用GPU资源，产生不必要的费用。
+1️⃣ 如果远端服务使用结束，一定要记得**手动delete** shell任务，否则会一直占用GPU资源，产生不必要的费用。
 
 2️⃣ 所有server**必须绑定0.0.0.0**，不能使用127.0.0.1或localhost。
 
