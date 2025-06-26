@@ -825,7 +825,7 @@ GPU Run提供与VSCode直接Run代码类似的开发态执行体验，运行Log�
 ## Run Shell
 
 与GPU Run类似，Run Shell可用于运行sh脚本，也可用于编译环境，但如上文所说编译后的环境只会保存在临时存储中，关闭workshop后会清除。
->注：sh文件中需要添加conda activate [你的环境名]命令，或在.bashrc文件中直接激活conda环境。
+>注：若使用了conda环境，则在sh文件中需要添加conda activate [你的环境名]命令，或在.bashrc文件中直接激活conda环境。
 
 ## Run Task
 
@@ -916,11 +916,11 @@ Run Task作为唯一训练态功能，可用于运行多worker分布式任务（
 
 ### 使用端口转发启动Jupyter
 
-1. 启动workshop，进入远端页面后，选择/root目录作为工作路径。
+1. 使用**torch镜像**启动workshop，进入远端页面后，选择/root目录作为工作路径。
 
    ![OpenFolder](./pic/OpenFolder.png) 
 
-2. 打开远端页面终端，输入以下命令安装Jupyter：
+2. 打开远端页面终端，输入以下命令安装Jupyter，并保存为新镜像：
 ``` bash
 # 用 Anaconda 安装
 conda install jupyter notebook
@@ -951,16 +951,16 @@ notebook         : 7.4.2
 qtconsole        : not installed
 traitlets        : 5.14.3
 ```
+- 在本地窗口保存镜像[保存镜像](#保存workshop环境)，这里保存为了jupyter
+
+   ![jupyter-image](./pic/jupyter-image.png)
 
 3. 在/root目录下新建.sh文件，输入以下命令：
 
 ``` bash
-#激活包含jupyter的环境
-conda activate [你的环境]
-
-jupyter notebook --allow-root --listen 0.0.0.0
+jupyter notebook --allow-root --ip=0.0.0.0 --port=8888 --no-browser
 ```
-4. 在代码区或对.sh文件右击，选择Run Shell运行，通过任一方法添加端口：
+4. 在代码区或对.sh文件右击，选择Run Shell运行，选择**已保存的镜像**，并通过任一方法添加端口：
  - **方法1**：通过Run Shell配置页<sup>1</sup>添加端口
  展开“Advanced”后，点击“+Add External Access”<sup>2</sup>新建端口，输入端口号<sup>3</sup>（Jupyter Sever启动端口号默认为“8888”），提交运行
 
@@ -1024,7 +1024,7 @@ jupyter notebook --allow-root --listen 0.0.0.0
     import torch
     torch.cuda.is_available()
     ```
-    如果conda环境中含有torch，则有类似下文的输出：
+    输出如下：
     ``` text
     True
     ```
@@ -1176,6 +1176,8 @@ AladdinEdu平台目前提供两种GPU，规格如下：
 
 ## 结转
 套餐有效期为30天，期间未消耗的算力将且仅将结转30天，结转后的算力处于未激活状态。在结转周期内再次订阅，这部分算力将被激活，但无法再次结转；若无再次订阅，这部分算力将无法继续使用。
+
+>扩展包不参与结转，会随当前套餐结束而彻底失效。
 
 举例：
 小明在4月1日订阅了一个月尝鲜版套餐，在4月30日剩余10DCU算力未使用， 那么在5月1日账号内仍会留有10DCU算力，但该部分算力尚处于未激活状态。小明在5月15日再次订阅了一个月初级版套餐，此时10DCU算力激活，账户内合计有66.6DCU算力。假设小明在6月13日前没有消耗任何算力，那么在6月14日，10DCU过期，其算力余额将为56.6DCU，且处于未激活状态。
