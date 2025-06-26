@@ -39,21 +39,326 @@ plugin:
 
 ## 公开资源
 
-```
+```bash
 # GitHub加速
 git config --global url."https://gh-proxy.com/github.com/".insteadOf "https://github.com/"
-
-# Huggingface模型缓存
-export HF_ENDPOINT=http://hfmirror.mas.zetyun.cn:8082
-
-# 查看缓存模型列表
-curl http://hfmirror.mas.zetyun.cn:8082/repos
-
-# huggingface cli下载模型
-huggingface-cli download --resume-download Qwen/Qwen2.5-1.5B-Instruct --local-dir Qwen/Qwen2.5-1.5B-Instruct
-huggingface-cli download --resume-download Qwen/Qwen2.5-14B-Instruct  --local-dir Qwen/Qwen2.5-14B-Instruct
-
 ```
+
+## 下载平台已缓存模型
+平台中我们缓存了很多开源模型，可以加速下载。
+
+1. 设置HF_ENDPOINT环境变量：
+```bash
+export HF_ENDPOINT=http://hfmirror.mas.zetyun.cn:8082
+```
+2. 查看模型缓存列表：
+
+```bash
+# 展示所有已缓存模型名称
+ curl -s http://hfmirror.mas.zetyun.cn:8082/repos | grep -oP '(?<=<div class="header">)[^<]+' | sort | sort
+```
+
+   <details>
+      <summary>点击展开 / 收起模型列表</summary>
+
+      ACE-Step/ACE-Step-v1-chinese-rap-LoRA
+      AI-MO/NuminaMath-1.5
+      AI-MO/NuminaMath-TIR
+      AIDC-AI/Ovis1.6-Gemma2-9B
+      AgentGym/AgentEval
+      AgentGym/AgentEvol-7B
+      AlayaNeW/QA_from_CoVLA_zh
+      AlphaGaO/DeepSeek-V3-0324-Fused-8E-39B-Unhealed-Preview
+      BAAI/OpenSeek-Pretrain-100B
+      BAAI/ShareRobot
+      BAAI/bge-m3
+      BAAI/bge-reranker-base
+      Bofeee5675/TongUI-143K
+      ByteDance/Dolphin
+      CEIA-UFG/Gemma-3-Gaia-PT-BR-4b-it
+      Comfy-Org/ACE-Step_ComfyUI_repackaged
+      Comfy-Org/HunyuanVideo_repackaged
+      Comfy-Org/Wan_2.1_ComfyUI_repackaged
+      Comfy-Org/flux1-schnell
+      Comfy-Org/sigclip_vision_384
+      DataCanvas/Alaya-7B-Base
+      Efficient-Large-Model/NVILA-Lite-15B
+      FacehugmanIII/4x_foolhardy_Remacri
+      FunAudioLLM/SenseVoiceSmall
+      GraydientPlatformAPI/flux-clip
+      HuggingFaceTB/SmolVLM-256M-Instruct
+      Jize1/GTA
+      Kijai/HunyuanVideo_comfy
+      Kijai/WanVideo_comfy
+      Kijai/llava-llama-3-8b-text-encoder-tokenizer
+      Laxhar/noobai-XL-1.1
+      LeonJoe13/Sonic
+      LiheYoung/depth-anything-large-hf
+      OpenGVLab/InternVL2_5-26B
+      OpenGVLab/InternVL2_5-38B
+      OpenGVLab/InternVL2_5-4B
+      OpenGVLab/InternVL2_5-78B
+      OpenGVLab/InternVL2_5-8B
+      OpenGVLab/InternVL3-14B-AWQ
+      PRIME-RL/Eurus-2-RL-Data
+      Qwen/QVQ-72B-Preview
+      Qwen/QwQ-32B
+      Qwen/QwQ-32B-AWQ
+      Qwen/QwQ-32B-Preview
+      Qwen/Qwen-7B
+      Qwen/Qwen1.5-0.5B-Chat-AWQ
+      Qwen/Qwen1.5-0.5B-Chat-GPTQ-Int4
+      Qwen/Qwen2-0.5B-Instruct-AWQ
+      Qwen/Qwen2-0.5B-Instruct-GGUF
+      Qwen/Qwen2-0.5B-Instruct-MLX
+      Qwen/Qwen2-7B
+      Qwen/Qwen2-7B-Instruct
+      Qwen/Qwen2-VL-2B-Instruct
+      Qwen/Qwen2-VL-7B-Instruct
+      Qwen/Qwen2.5-0.5B
+      Qwen/Qwen2.5-0.5B-Instruct
+      Qwen/Qwen2.5-1.5B
+      Qwen/Qwen2.5-1.5B-Instruct
+      Qwen/Qwen2.5-14B-Instruct
+      Qwen/Qwen2.5-32B
+      Qwen/Qwen2.5-32B-Instruct
+      Qwen/Qwen2.5-72B
+      Qwen/Qwen2.5-72B-Instruct
+      Qwen/Qwen2.5-7B
+      Qwen/Qwen2.5-7B-Instruct
+      Qwen/Qwen2.5-Coder-0.5B-Instruct-AWQ
+      Qwen/Qwen2.5-Math-7B
+      Qwen/Qwen2.5-Omni-7B
+      Qwen/Qwen2.5-VL-32B-Instruct
+      Qwen/Qwen2.5-VL-32B-Instruct-AWQ
+      Qwen/Qwen2.5-VL-3B-Instruct
+      Qwen/Qwen2.5-VL-72B-Instruct
+      Qwen/Qwen2.5-VL-7B-Instruct
+      Qwen/Qwen3-0.6B
+      Qwen/Qwen3-0.6B-Base
+      Qwen/Qwen3-0.6B-FP8
+      Qwen/Qwen3-1.7B
+      Qwen/Qwen3-1.7B-Base
+      Qwen/Qwen3-1.7B-FP8
+      Qwen/Qwen3-14B
+      Qwen/Qwen3-14B-Base
+      Qwen/Qwen3-14B-FP8
+      Qwen/Qwen3-235B-A22B
+      Qwen/Qwen3-235B-A22B-FP8
+      Qwen/Qwen3-30B-A3B
+      Qwen/Qwen3-30B-A3B-Base
+      Qwen/Qwen3-30B-A3B-FP8
+      Qwen/Qwen3-32B
+      Qwen/Qwen3-32B-FP8
+      Qwen/Qwen3-4B
+      Qwen/Qwen3-4B-Base
+      Qwen/Qwen3-4B-FP8
+      Qwen/Qwen3-8B
+      Qwen/Qwen3-8B-Base
+      Qwen/Qwen3-8B-FP8
+      RUC-AIBOX/STILL-2
+      RUC-AIBOX/STILL-3-TOOL-32B
+      RUC-AIBOX/ds_qwen_1.5B-iter1_steps60-iter2_steps60-iter3_steps60-iter4_steps60
+      RUC-AIBOX/long_form_thought_data_5k
+      RedHatAI/Qwen2.5-VL-72B-Instruct-quantized.w8a8
+      SGLang/DeepSeek-V3-NextN
+      SamuelYang/bookcorpus
+      Shakker-Labs/FLUX.1-dev-ControlNet-Union-Pro-2.0
+      SynthLabsAI/Big-Math-RL-Verified
+      THUDM/chatglm-6b
+      THUDM/glm-4v-9b
+      Virtuos-rnd/flux_upscale_model
+      Vvilams/t5xxl_fp16
+      Wan-AI/Wan2.1-I2V-14B-720P
+      Wan-AI/Wan2.1-T2V-1.3B
+      Wan-AI/Wan2.1-T2V-14B
+      Wan-AI/Wan2.1-VACE-1.3B
+      Wan-AI/Wan2.1-VACE-14B
+      XLabs-AI/flux-furry-lora
+      XLabs-AI/flux-lora-collection
+      YkiWu/hoi4d_release
+      agentica-org/DeepCoder-14B-Preview
+      agentica-org/DeepScaleR-Preview-Dataset
+      aharley/pointodyssey
+      baichuan-inc/Baichuan-7B
+      bert-base-uncased/paths-info
+      black-forest-labs/FLUX.1-Canny-dev
+      black-forest-labs/FLUX.1-Depth-dev-lora
+      black-forest-labs/FLUX.1-Fill-dev
+      black-forest-labs/FLUX.1-Redux-dev
+      black-forest-labs/FLUX.1-dev
+      black-forest-labs/FLUX.1-schnell
+      bookcorpus/bookcorpus
+      cagliostrolab/animagine-xl-3.1
+      calcuis/wan-gguf
+      camenduru/SMPLer-X
+      city96/Wan2.1-I2V-14B-480P-gguf
+      city96/Wan2.1-I2V-14B-720P-gguf
+      cognitivecomputations/DeepSeek-V3-0324-AWQ
+      comfyanonymous/flux_text_encoders
+      deepseek-ai/DeepSeek-Prover-V2-671B
+      deepseek-ai/DeepSeek-R1
+      deepseek-ai/DeepSeek-R1-0528
+      deepseek-ai/DeepSeek-R1-Distill-Llama-70B
+      deepseek-ai/DeepSeek-R1-Distill-Llama-8B
+      deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B
+      deepseek-ai/DeepSeek-R1-Distill-Qwen-14B
+      deepseek-ai/DeepSeek-R1-Distill-Qwen-32B
+      deepseek-ai/DeepSeek-R1-Distill-Qwen-7B
+      deepseek-ai/DeepSeek-R1-Zero
+      deepseek-ai/DeepSeek-V3
+      deepseek-ai/DeepSeek-V3-0324
+      deepseek-ai/DeepSeek-V3-Base
+      deepseek-ai/Janus-Pro-7B
+      deepseek-ai/deepseek-r1-distill-qwen-1.5b
+      deepseek-ai/deepseek-r1-distill-qwen-7b
+      deepseek-ai/deepseek-vl2-tiny
+      echo840/MonkeyOCR
+      eugenesiow/Div2k
+      facebook/esm2_t48_15B_UR50D
+      gaia-benchmark/GAIA
+      goodfellowliu/Flickr2K
+      google-bert/bert-base-uncased
+      google/flan-t5-xxl
+      google/gemma-3-12b-it
+      google/gemma-3-1b-it
+      google/gemma-3-27b-it
+      google/gemma-3-4b-it
+      google/medgemma-27b-text-it
+      google/medgemma-4b-it
+      google/siglip-so400m-patch14-384
+      google/t5-v1_1-xxl
+      google/vit-base-patch16-224
+      hf-internal-testing/llama-tokenizer
+      hongchi/wildrgbd
+      hongchi/wildrgbd
+      huxueyu/0.5B_en_train_16_20250129-134441
+      huxueyu/0.5B_en_train_16_zh_train_16_fr_train_16_es_train_16_20250129-162020
+      huxueyu/0.5B_en_train_1_20250129-135620
+      huxueyu/0.5B_en_train_1_es_train_16_20250130-042204
+      huxueyu/0.5B_en_train_1_es_train_1_20250130-054545
+      huxueyu/0.5B_en_train_1_es_train_256_20250130-030948
+      huxueyu/0.5B_en_train_1_es_train_4_20250130-050028
+      huxueyu/0.5B_en_train_1_es_train_64_20250130-034602
+      huxueyu/0.5B_en_train_1_fr_train_16_20250130-003217
+      huxueyu/0.5B_en_train_1_fr_train_1_20250130-015514
+      huxueyu/0.5B_en_train_1_fr_train_256_20250129-232036
+      huxueyu/0.5B_en_train_1_fr_train_4_20250130-011017
+      huxueyu/0.5B_en_train_1_fr_train_64_20250129-235612
+      huxueyu/0.5B_en_train_1_zh_train_16_20250129-204850
+      huxueyu/0.5B_en_train_1_zh_train_1_20250129-221038
+      huxueyu/0.5B_en_train_1_zh_train_1_fr_train_1_es_train_1_20250129-170723
+      huxueyu/0.5B_en_train_1_zh_train_256_20250129-193633
+      huxueyu/0.5B_en_train_1_zh_train_4_20250129-212622
+      huxueyu/0.5B_en_train_1_zh_train_64_20250129-201242
+      huxueyu/0.5B_en_train_256_20250129-134208
+      huxueyu/0.5B_en_train_256_zh_train_256_fr_train_256_es_train_256_20250129-161615
+      huxueyu/0.5B_en_train_4_20250129-134723
+      huxueyu/0.5B_en_train_4_zh_train_4_fr_train_4_es_train_4_20250129-162944
+      huxueyu/0.5B_en_train_64_20250129-134325
+      huxueyu/0.5B_en_train_64_zh_train_64_fr_train_64_es_train_64_20250129-161732
+      huxueyu/0.5B_es_train_16_20250130-122336
+      huxueyu/0.5B_es_train_1_20250130-123637
+      huxueyu/0.5B_es_train_256_20250130-122107
+      huxueyu/0.5B_es_train_4_20250130-122634
+      huxueyu/0.5B_es_train_64_20250130-122217
+      huxueyu/0.5B_fr_train_16_20250129-152356
+      huxueyu/0.5B_fr_train_1_20250129-153638
+      huxueyu/0.5B_fr_train_256_20250129-152136
+      huxueyu/0.5B_fr_train_4_20250129-152648
+      huxueyu/0.5B_fr_train_64_20250129-152238
+      huxueyu/0.5B_zh_train_16_20250129-143442
+      huxueyu/0.5B_zh_train_1_20250129-144611
+      huxueyu/0.5B_zh_train_256_20250129-143226
+      huxueyu/0.5B_zh_train_4_20250129-143719
+      huxueyu/0.5B_zh_train_64_20250129-143327
+      huxueyu/3B_fr_train_1_20250131-173250
+      internlm/internlm2-chat-7b
+      jinaai/jina-clip-v2
+      juaner0211/Animal_Crossing_style_flux_lora
+      laion/CLIP-ViT-bigG-14-laion2B-39B-b160k
+      latent-action-pretraining/LAPA-7B-openx
+      leapfusion-image2vid-test/image2vid-960x544
+      leptonai/EAGLE-Llama-3.1-70B-Instruct
+      leptonai/EAGLE-Llama-3.1-8B-Instruct
+      lerobot/aloha_sim_insertion_human
+      lerobot/diffusion_pusht
+      lerobot/pusht
+      lingshu-medical-mllm/Lingshu-32B
+      lingshu-medical-mllm/Lingshu-7B
+      liuqingquan/sd35_clip_l
+      llava-hf/llava-interleave-qwen-0.5b-hf
+      llava-hf/llava-v1.6-mistral-7b-hf
+      lokCX/4x-Ultrasharp
+      meta-llama/Llama-2-7b
+      meta-llama/Llama-3.1-70B-Instruct
+      meta-llama/Llama-3.1-8B-Instruct
+      meta-llama/Llama-3.2-11B-Vision-Instruct
+      meta-llama/Llama-3.3-70B-Instruct
+      meta-llama/Llama-4-Scout-17B-16E
+      meta-llama/Llama-4-Scout-17B-16E-Instruct
+      meta-llama/Meta-Llama-3-8B
+      meta-llama/Meta-Llama-3-8B-Instruct
+      microsoft/Phi-4-multimodal-instruct
+      moonshotai/Kimi-Audio-7B-Instruct
+      mtoan65/ATLAS_nnUNetv2
+      nari-labs/Dia-1.6B
+      nvidia/Llama-3_1-Nemotron-Ultra-253B-v1
+      omlab/VLM-R1
+      open-r1/OpenR1-Math-220k
+      open-thoughts/OpenThinker-7B
+      openai/clip-vit-base-patch32
+      openai/clip-vit-large-patch14
+      openai/whisper-large
+      openai/whisper-tiny
+      openbmb/MiniCPM-V-2_6
+      openbmb/MiniCPM-o-2_6
+      openbmb/MiniCPM3-4B
+      openbmb/RLAIF-V-12B
+      openvla/modified_libero_rlds
+      openvla/openvla-7b
+      perplexity-ai/r1-1776
+      qihoo360/Light-R1-32B-DS
+      qihoo360/Light-R1-7B-DS
+      qwbu/univla-7b
+      qwbu/univla-latent-action-model
+      qwen/Qwen1.5-1.8B-Chat
+      robotics-diffusion-transformer/rdt-1b
+      runwayml/stable-diffusion-v1-5
+      stabilityai/sdxl-turbo
+      stabilityai/stable-diffusion-3.5-large
+      stabilityai/stable-video-diffusion-img2vid-xt
+      stabilityai/stable-video-diffusion-img2vid-xt-1-1
+      tencent/DepthCrafter
+      tencent/HunyuanVideo
+      unsloth/DeepSeek-R1-GGUF
+      vidore/colpali-v1.2
+      vidore/colpaligemma-3b-pt-448-base
+      vidore/colqwen2.5-base
+      vidore/colqwen2.5-v0.2
+      waanqii/SMPLest-X
+      wtcherr/unsplash_10k_canny
+      x-humanoid-robomind/RoboMIND
+      xlabs-ai/xflux_text_encoders
+      xtuner/llava-llama-3-8b-v1_1-transformers
+      yentinglin/aime_2025
+      yulan-team/YuLan-Mini
+      zheng95z/rgb-to-x
+      zhzhen23/DynVQA
+      zixianma/mnms
+
+   </details>
+
+>如有其他模型需求，可联系客服添加至缓存中~
+
+3. 确保已安装 huggingface_hub 库的情况下，使用以下命令下载模型，下载平均速度可达60MB/s：
+```
+huggingface-cli download --resume-download Qwen/Qwen2.5-1.5B-Instruct --local-dir Qwen/Qwen2.5-1.5B-Instruct
+```
+
+   ![model1](./pic/model1.png)
+
+
 
 # 快速开始
 
