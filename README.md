@@ -1,10 +1,10 @@
 ---
-title: "UserManual_v1.3.0"
-date: June 19, 2025
+title: "UserManual_v1.3.3"
+date: June 27, 2025
 output: pdf_document
 plugin: 
   name: "Aladdin"
-  version: "2.3.1"
+  version: "2.3.3"
 ---
 # AladdinEdu使用手册
 
